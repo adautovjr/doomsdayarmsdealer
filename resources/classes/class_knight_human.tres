@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ClassInfo" load_steps=2 format=3 uid="uid://dd6d0rqmmcgs7"]
+
+[ext_resource type="Script" path="res://resources/classes/ClassInfo.gd" id="1_cr72h"]
+
+[resource]
+script = ExtResource("1_cr72h")
+is_moving_left = true
+attack_cooldown_time = 1.3
+hp = 150
+damage = 60.0
+range = 50

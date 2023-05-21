@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://jo5obkp4wcbg"]
+
+[ext_resource type="Texture2D" uid="uid://cyr8rl1emghgj" path="res://assets/CuteCards - asset pack/CuteCards.png" id="1_qmti0"]
+[ext_resource type="Script" path="res://scripts/card.gd" id="2_qieoo"]
+
+[node name="Sprite2D" type="Sprite2D"]
+scale = Vector2(1.22, 1.22)
+texture = ExtResource("1_qmti0")
+hframes = 15
+vframes = 4
+frame = 14
+script = ExtResource("2_qieoo")
