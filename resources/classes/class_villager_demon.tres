@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ClassInfo" load_steps=2 format=3 uid="uid://dqchagv7y647u"]
+
+[ext_resource type="Script" path="res://resources/classes/ClassInfo.gd" id="1_v3t6t"]
+
+[resource]
+script = ExtResource("1_v3t6t")
+classname = "villager"
+is_moving_left = false
+attack_cooldown_time = 1.5
+hp = 170
+damage = 25.0
+attack_range = 15.0

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ClassInfo" load_steps=2 format=3 uid="uid://3iubq8crbmwj"]
+
+[ext_resource type="Script" path="res://resources/classes/ClassInfo.gd" id="1_s51bu"]
+
+[resource]
+script = ExtResource("1_s51bu")
+classname = "footman"
+is_moving_left = false
+attack_cooldown_time = 1.2
+hp = 220
+damage = 60.0
+attack_range = 40.0

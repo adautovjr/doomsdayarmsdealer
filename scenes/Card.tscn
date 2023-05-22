@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cmqheujsf21rb" path="res://theme.tres" id="1_aq8ae"]
 [ext_resource type="Texture2D" uid="uid://cyr8rl1emghgj" path="res://assets/CuteCards - asset pack/CuteCards.png" id="1_qmti0"]
 [ext_resource type="Script" path="res://scripts/card.gd" id="2_qieoo"]
-[ext_resource type="Texture2D" uid="uid://wulir8ntdpfn" path="res://assets/kenney_platformer-art-extended-enemies/Alien sprites/alienGreen.png" id="4_o42c8"]
+[ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="4_et8h1"]
 
 [node name="Card" type="MarginContainer"]
 anchors_preset = -1
@@ -27,8 +27,12 @@ vframes = 4
 frame = 14
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(70.4918, 75.4098)
-texture = ExtResource("4_o42c8")
+position = Vector2(70, 53)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_et8h1")
+hframes = 9
+vframes = 14
+frame = 63
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

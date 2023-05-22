@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dws5yla2y7vyd"]
+[gd_scene load_steps=5 format=3 uid="uid://dws5yla2y7vyd"]
 
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_jw04m"]
 [ext_resource type="Texture2D" uid="uid://cyr8rl1emghgj" path="res://assets/CuteCards - asset pack/CuteCards.png" id="2_n7dwr"]
+[ext_resource type="Theme" uid="uid://cmqheujsf21rb" path="res://theme.tres" id="3_7ns5i"]
 
 [sub_resource type="Theme" id="Theme_aek7s"]
 Button/font_sizes/font_size = 30
@@ -73,6 +74,20 @@ frame = 44
 
 [node name="Button" type="Button" parent="MarginContainer2"]
 layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+offset_right = 336.0
+offset_bottom = 161.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="PlayerBalance" type="Label" parent="MarginContainer3"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 40
+text = "$ 100"
 
 [connection signal="pressed" from="Back" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_button_2_pressed"]

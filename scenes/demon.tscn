@@ -604,8 +604,7 @@ collision_layer = 4
 [node name="AnimatedSprite2D" parent="." index="1"]
 position = Vector2(-3, -5)
 sprite_frames = SubResource("SpriteFrames_31uyu")
-animation = &"attack_villager"
-frame_progress = 0.188612
+animation = &"attack_royal_guard"
 
 [node name="CollisionShape2D" parent="." index="2"]
 visible = false

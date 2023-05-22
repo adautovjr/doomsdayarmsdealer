@@ -6,7 +6,8 @@ var class_info: ClassInfo
 
 enum STATES {
 	WALK,
-	ATTACK
+	ATTACK,
+	DIE
 }
 
 var state: STATES = STATES.WALK
@@ -65,7 +66,6 @@ func _physics_process(delta):
 func _get_animation(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
 	elif state == STATES.ATTACK:
 		animated_sprite.play("attack_" + class_info.classname)
 	else:
@@ -102,7 +102,10 @@ func take_damage(d: float):
 
 func handle_death():
 	if hp <= 0:
-		queue_free()
+		state = STATES.DIE
+		$HUD/DebugLabel.text = "die_" + class_info.classname
+		animated_sprite.play("die_" + class_info.classname)
+		create_tween().tween_callback(queue_free).set_delay(0.8)
 
 
 func add_damage(value):
@@ -131,7 +134,8 @@ func check_collisions_for_valid_target(body = null) -> bool:
 
 func _set_target(t):
 	target = t
-	state = STATES.ATTACK
+	if t != null:
+		state = STATES.ATTACK
 
 
 ############## UI ##############

@@ -3,6 +3,9 @@ extends Node
 @onready var cardDB = preload("res://resources/cards/CardsDatabase.gd")
 @onready var cardScene = preload("res://scenes/Card.tscn")
 
+var player_balance = 100.0
+var card_buy_price = 20.0
+
 func _ready():
 	pass
 
@@ -31,3 +34,13 @@ func spawnCard(cardName: String, realm: String):
 	var newCard = cardScene.instantiate()
 	newCard.init(cardName, realm)
 	Events.emit_signal("add_cards_to_players_hand", newCard)
+
+
+func spend_money(amount: float):
+	player_balance -= amount
+	Events.emit_signal("update_player_balance")
+
+
+func add_money(amount: float):
+	player_balance += amount
+	Events.emit_signal("update_player_balance")

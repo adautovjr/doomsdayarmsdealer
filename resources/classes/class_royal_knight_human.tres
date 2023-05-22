@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ClassInfo" load_steps=2 format=3 uid="uid://b5520w6l0kbfu"]
+
+[ext_resource type="Script" path="res://resources/classes/ClassInfo.gd" id="1_gf77w"]
+
+[resource]
+script = ExtResource("1_gf77w")
+classname = "royal_knight"
+is_moving_left = true
+attack_cooldown_time = 1.2
+hp = 600
+damage = 160.0
+attack_range = 50.0

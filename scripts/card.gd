@@ -15,7 +15,7 @@ func init(className = "tank", realm = "human"):
 
 func _ready():
 	$MarginContainer/VBoxContainer/Description.text = cardInfo.description
-	# $Sprite2D.frame = 0 if cardRealm == "human" else
+	$Sprite2D.frame = cardInfo.sprite_frame if cardRealm == "human" else cardInfo.sprite_frame + 63
 	pass
 
 
@@ -24,6 +24,7 @@ func _on_button_pressed():
 	match cardInfo.type:
 		"Unit":
 			Events.emit_signal("spawnUnit", unitClass, cardRealm)
+			GameManager.add_money(cardInfo.sell_price)
 		_:
 			print(cardInfo.type + " card not Implemented yet")
 	queue_free()
