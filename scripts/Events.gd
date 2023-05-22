@@ -1,7 +1,4 @@
 extends Node
 
-
-signal near_interactable_object(nearest_interactive_object, body)
-signal left_interactable_object
-signal iteract(object)
-signal add_new_spell(spell)
+signal spawnUnit(className, realm)
+signal add_cards_to_players_hand(card)

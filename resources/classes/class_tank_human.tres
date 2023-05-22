@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_pt1p1")
+classname = "tank"
 is_moving_left = true
 attack_cooldown_time = 1.5
-hp = 200
+hp = 500
 damage = 30.0
-detection_area = NodePath("DetectionArea2D/DetectionCollision")
-metadata/_editor_prop_ptr_detection_area = null
+attack_range = 15.0

@@ -21,16 +21,20 @@ var spawned_units_counter = {
 }
 
 
+func _ready():
+	Events.connect("spawnUnit", spawnUnit)
+
+
 func _physics_process(delta):
 	_handle_demon_spawns(delta)
-	#_handle_human_spawns(delta)
+	_handle_human_spawns(delta)
 
 
-func spawnUnit(className: String, type: String):
-	var unit = units[type].instantiate()
-	unit.init(load("res://resources/classes/class_" + className + "_" + type + ".tres"))
-	unit.add_damage(spawned_units_counter[type])
-	spawn_points[type].add_child(unit)
+func spawnUnit(className: String, realm: String):
+	var unit = units[realm].instantiate()
+	unit.init(load("res://resources/classes/class_" + className + "_" + realm + ".tres"))
+	unit.add_damage(spawned_units_counter[realm])
+	spawn_points[realm].add_child(unit)
 
 
 func _handle_demon_spawns(delta):

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bre30ckg24v6w"]
+[gd_scene load_steps=5 format=3 uid="uid://bre30ckg24v6w"]
 
 [ext_resource type="PackedScene" uid="uid://dws5yla2y7vyd" path="res://scenes/interface.tscn" id="1_6j8ll"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="1_fbe8i"]
 [ext_resource type="TileSet" uid="uid://bqavo1og8swbs" path="res://Tileset.tres" id="1_gu67c"]
-[ext_resource type="PackedScene" uid="uid://jo5obkp4wcbg" path="res://scenes/Card.tscn" id="4_ffgtx"]
 [ext_resource type="PackedScene" uid="uid://btqtpyexmfuue" path="res://scenes/tower.tscn" id="5_0qye8"]
 
 [node name="level1" type="Node2D"]
@@ -23,19 +22,19 @@ layer_0/tile_data = PackedInt32Array(65515, 196610, 6, 65516, 196610, 6, 65517, 
 position = Vector2(0, -70)
 
 [node name="DemonSpawn" type="Marker2D" parent="."]
-position = Vector2(-850, -25)
+position = Vector2(-878, -25)
 
 [node name="HumanSpawn" type="Marker2D" parent="."]
-position = Vector2(850, -25)
-
-[node name="Sprite2D" parent="." instance=ExtResource("4_ffgtx")]
-visible = false
-position = Vector2(-120, 116)
+position = Vector2(884, -25)
 
 [node name="DemonTower" parent="." instance=ExtResource("5_0qye8")]
 position = Vector2(-878, -60)
 collision_layer = 16
+collision_mask = 2
+monitoring = false
 
 [node name="HumanTower" parent="." instance=ExtResource("5_0qye8")]
 position = Vector2(884, -61)
 collision_layer = 8
+collision_mask = 4
+monitoring = false

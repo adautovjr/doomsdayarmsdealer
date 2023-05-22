@@ -1,8 +1,8 @@
 var time = 0.0
 var cooldown = 0.0
 
-func _init(cooldown):
-	self.cooldown = cooldown
+func _init(cd):
+	self.cooldown = cd
 	self.time = 0
 
 func tick(delta):

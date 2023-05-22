@@ -4,8 +4,9 @@
 
 [resource]
 script = ExtResource("1_pnm6t")
+classname = "knight"
 is_moving_left = false
 attack_cooldown_time = 1.2
-hp = 160
+hp = 320
 damage = 70.0
-range = 50
+attack_range = 40.0

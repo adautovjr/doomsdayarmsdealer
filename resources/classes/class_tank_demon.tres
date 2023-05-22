@@ -4,8 +4,9 @@
 
 [resource]
 script = ExtResource("1_hyh7p")
+classname = "tank"
 is_moving_left = false
 attack_cooldown_time = 1.5
-hp = 200
+hp = 520
 damage = 35.0
-range = 15
+attack_range = 15.0

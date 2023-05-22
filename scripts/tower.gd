@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 @export var hp = 2000
 var max_hp: float

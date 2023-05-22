@@ -6,11 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jem38"]
 size = Vector2(126, 102)
 
-[node name="DemonTower" type="RigidBody2D"]
+[node name="DemonTower" type="Area2D"]
 collision_layer = 0
 collision_mask = 0
-gravity_scale = 2.66454e-15
-freeze = true
 script = ExtResource("1_k00gj")
 
 [node name="HUD" type="Control" parent="."]
