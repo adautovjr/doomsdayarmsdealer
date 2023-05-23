@@ -589,7 +589,7 @@ collision_layer = 2
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_0xga8")
-animation = &"die_tank"
+animation = &"die_villager"
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 0)

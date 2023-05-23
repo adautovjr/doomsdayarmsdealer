@@ -16,7 +16,6 @@ func init(className = "tank", realm = "human"):
 func _ready():
 	$MarginContainer/VBoxContainer/Description.text = cardInfo.description
 	$Sprite2D.frame = cardInfo.sprite_frame if cardRealm == "human" else cardInfo.sprite_frame + 63
-	pass
 
 
 func _on_button_pressed():

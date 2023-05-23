@@ -38,9 +38,19 @@ func spawnCard(cardName: String, realm: String):
 
 func spend_money(amount: float):
 	player_balance -= amount
-	Events.emit_signal("update_player_balance")
+	Events.emit_signal("update_balance_ui")
 
 
 func add_money(amount: float):
 	player_balance += amount
-	Events.emit_signal("update_player_balance")
+	Events.emit_signal("update_balance_ui")
+
+
+func increase_buy_price(amount: float):
+	card_buy_price += amount
+	Events.emit_signal("update_balance_ui")
+
+
+func decrease_buy_price(amount: float):
+	card_buy_price -= amount
+	Events.emit_signal("update_balance_ui")

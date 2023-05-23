@@ -20,13 +20,13 @@ layer_0/tile_data = PackedInt32Array(65515, 196610, 6, 65516, 196610, 6, 65517, 
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -70)
-zoom = Vector2(2, 2)
-
-[node name="DemonSpawn" type="Marker2D" parent="."]
-position = Vector2(-878, -25)
+zoom = Vector2(3, 3)
 
 [node name="HumanSpawn" type="Marker2D" parent="."]
 position = Vector2(884, -25)
+
+[node name="DemonSpawn" type="Marker2D" parent="."]
+position = Vector2(-878, -25)
 
 [node name="DemonTower" parent="." instance=ExtResource("5_0qye8")]
 position = Vector2(-878, -60)

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="4_et8h1"]
 
 [node name="Card" type="MarginContainer"]
+custom_minimum_size = Vector2(139, 199)
 anchors_preset = -1
 anchor_right = 0.072
 anchor_bottom = 0.184
@@ -60,9 +61,11 @@ autowrap_mode = 2
 shortcut_keys_enabled = false
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -105,7 +105,8 @@ func handle_death():
 		state = STATES.DIE
 		$HUD/DebugLabel.text = "die_" + class_info.classname
 		animated_sprite.play("die_" + class_info.classname)
-		create_tween().tween_callback(queue_free).set_delay(0.8)
+		set_physics_process(false)
+		create_tween().tween_callback(queue_free).set_delay(2)
 
 
 func add_damage(value):
@@ -170,7 +171,7 @@ func _on_detection_area_2d_area_entered(area):
 	check_collisions_for_valid_target(area)
 
 
-func _on_detection_area_2d_area_exited(area):
+func _on_detection_area_2d_area_exited(_area):
 	var has_target = check_collisions_for_valid_target()
 	if not has_target:
 		_set_target(null)

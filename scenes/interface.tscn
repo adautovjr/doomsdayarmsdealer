@@ -49,30 +49,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_7ns5i")
 theme_override_constants/margin_bottom = 20
 
 [node name="Hand" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -150.0
+offset_top = -156.0
 offset_right = 113.0
 grow_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="MarginContainer2"]
-position = Vector2(66, 67)
+position = Vector2(66, 68)
 texture = ExtResource("2_n7dwr")
 hframes = 15
 vframes = 4
 frame = 44
 
+[node name="CardBuyPrice" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 25
+text = "$ 25"
+horizontal_alignment = 1
+
 [node name="Button" type="Button" parent="MarginContainer2"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]

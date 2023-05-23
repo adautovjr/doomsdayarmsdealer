@@ -4,9 +4,9 @@ extends CanvasLayer
 
 func _ready():
 	Events.connect("add_cards_to_players_hand", add_cards_to_players_hand)
-	Events.connect("update_player_balance", update_player_balance)
+	Events.connect("update_balance_ui", update_balance_ui)
 	GameManager.spawnRandomCards(5)
-	update_player_balance()
+	update_balance_ui()
 
 
 func _on_button_pressed():
@@ -28,8 +28,10 @@ func _on_buy_card_button_pressed():
 
 
 func add_cards_to_players_hand(card):
+	GameManager.increase_buy_price(2)
 	hand.add_child(card)
 
 
-func update_player_balance():
+func update_balance_ui():
 	$MarginContainer3/PlayerBalance.text = str("$ ", GameManager.player_balance)
+	$MarginContainer2/CardBuyPrice.text = str("$ ", GameManager.card_buy_price)
