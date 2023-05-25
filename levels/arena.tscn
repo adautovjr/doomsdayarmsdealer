@@ -1,0 +1,415 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0gvn015ljwx1"]
+
+[ext_resource type="Script" path="res://scripts/arena.gd" id="1_18xfr"]
+[ext_resource type="Script" path="res://scripts/interface.gd" id="2_rdp7a"]
+[ext_resource type="TileSet" uid="uid://bqavo1og8swbs" path="res://Tileset.tres" id="3_msoki"]
+
+[sub_resource type="Theme" id="Theme_aek7s"]
+Button/font_sizes/font_size = 30
+
+[node name="arena" type="Node2D"]
+script = ExtResource("1_18xfr")
+metadata/_edit_lock_ = true
+
+[node name="Interface" type="CanvasLayer" parent="."]
+script = ExtResource("2_rdp7a")
+
+[node name="Back" type="Button" parent="Interface"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -113.0
+offset_bottom = 113.0
+grow_horizontal = 0
+theme = SubResource("Theme_aek7s")
+text = ">>>"
+
+[node name="Reset" type="Button" parent="Interface"]
+offset_right = 113.0
+offset_bottom = 113.0
+theme = SubResource("Theme_aek7s")
+text = "Reset"
+
+[node name="Pause" type="Button" parent="Interface"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_right = -137.0
+offset_bottom = 113.0
+grow_horizontal = 0
+theme = SubResource("Theme_aek7s")
+text = "||"
+
+[node name="Foward" type="Button" parent="Interface"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -390.0
+offset_right = -277.0
+offset_bottom = 113.0
+grow_horizontal = 0
+theme = SubResource("Theme_aek7s")
+text = "<<<"
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-1, 0)
+tile_set = ExtResource("3_msoki")
+cell_quadrant_size = 32
+collision_animatable = true
+format = 2
+layer_0/tile_data = PackedInt32Array(-1310726, 196610, 4, -1310725, 196610, 4, -1310724, 196610, 4, -1310723, 196610, 4, -1310722, 196610, 4, -1310721, 196610, 4, -1376236, 196610, 4, -1376235, 196610, 4, -1376234, 196610, 4, -1376233, 196610, 4, -1376256, 196610, 4, -1376255, 196610, 4, -1376254, 196610, 4, -1310732, 196610, 4, -1310733, 196610, 4, -1310734, 196610, 4, -1310735, 196610, 4, -1310736, 196610, 4, -1310737, 196610, 4, -1310729, 196610, 4, -1310730, 196610, 4, -1310731, 196610, 4, -1310740, 196610, 4, -1310741, 196610, 4, -1310742, 196610, 4, -1310743, 196610, 4, -1310744, 196610, 4, -1310745, 196610, 4, -1310746, 196610, 4, -1310747, 196610, 4, -1310748, 196610, 4, -1310751, 196610, 4, -1310752, 196610, 4, -1310754, 196610, 4, -1310753, 196610, 4, -1310755, 196610, 4, -1310756, 196610, 4, -1310757, 196610, 4, -1310758, 196610, 4, -1310759, 196610, 4, -1376251, 196610, 4, -1376250, 196610, 4, -1376249, 196610, 4, -1376248, 196610, 4, -1376247, 196610, 4, -1376246, 196610, 4, -1376245, 196610, 4, -1376244, 196610, 4, -1376243, 196610, 4, -1376240, 196610, 4, -1376239, 196610, 4, -1376238, 196610, 4, -1376237, 196610, 4, -1376232, 196610, 4, -1376229, 196610, 4, -1376228, 196610, 4, -1376227, 196610, 4, -1376226, 196610, 4, -1376225, 196610, 4, -1376224, 196610, 4, -1376223, 196610, 4, -1376222, 196610, 4, -1376221, 196610, 4, -983079, 196610, 4, -983078, 196610, 4, -983077, 196610, 4, -983076, 196610, 4, -983075, 196610, 4, -983074, 196610, 4, -983073, 196610, 4, -983072, 196610, 4, -983071, 196610, 4, -983068, 196610, 4, -983067, 196610, 4, -983066, 196610, 4, -983065, 196610, 4, -983064, 196610, 4, -983063, 196610, 4, -983062, 196610, 4, -983061, 196610, 4, -983060, 196610, 4, -983057, 196610, 4, -983056, 196610, 4, -983055, 196610, 4, -983054, 196610, 4, -983053, 196610, 4, -983052, 196610, 4, -983051, 196610, 4, -983050, 196610, 4, -983049, 196610, 4, -983046, 196610, 4, -983045, 196610, 4, -983044, 196610, 4, -983043, 196610, 4, -983042, 196610, 4, -983041, 196610, 4, -1048576, 196610, 4, -1048575, 196610, 4, -1048574, 196610, 4, -1048571, 196610, 4, -1048570, 196610, 4, -1048569, 196610, 4, -1048568, 196610, 4, -1048567, 196610, 4, -1048566, 196610, 4, -1048541, 196610, 4, -1048542, 196610, 4, -1048543, 196610, 4, -1048544, 196610, 4, -1048545, 196610, 4, -1048546, 196610, 4, -1048547, 196610, 4, -1048548, 196610, 4, -1048549, 196610, 4, -1048552, 196610, 4, -1048553, 196610, 4, -1048554, 196610, 4, -1048555, 196610, 4, -1048556, 196610, 4, -1048557, 196610, 4, -1048558, 196610, 4, -1048559, 196610, 4, -1048560, 196610, 4, -1048563, 196610, 4, -1048564, 196610, 4, -1048565, 196610, 4, -720861, 196610, 4, -720862, 196610, 4, -720863, 196610, 4, -720864, 196610, 4, -720865, 196610, 4, -720866, 196610, 4, -720867, 196610, 4, -720868, 196610, 4, -720869, 196610, 4, -720872, 196610, 4, -720873, 196610, 4, -720874, 196610, 4, -720875, 196610, 4, -720876, 196610, 4, -720877, 196610, 4, -720878, 196610, 4, -720879, 196610, 4, -720880, 196610, 4, -720883, 196610, 4, -720884, 196610, 4, -720885, 196610, 4, -720886, 196610, 4, -720887, 196610, 4, -720888, 196610, 4, -720889, 196610, 4, -720890, 196610, 4, -720891, 196610, 4, -720894, 196610, 4, -720895, 196610, 4, -720896, 196610, 4, -655361, 196610, 4, -655362, 196610, 4, -655363, 196610, 4, -655364, 196610, 4, -655365, 196610, 4, -655366, 196610, 4, -655369, 196610, 4, -655370, 196610, 4, -655371, 196610, 4, -655372, 196610, 4, -655373, 196610, 4, -655374, 196610, 4, -655375, 196610, 4, -655376, 196610, 4, -655377, 196610, 4, -655380, 196610, 4, -655381, 196610, 4, -655382, 196610, 4, -655383, 196610, 4, -655384, 196610, 4, -655385, 196610, 4, -655386, 196610, 4, -655387, 196610, 4, -655388, 196610, 4, -655391, 196610, 4, -655392, 196610, 4, -655393, 196610, 4, -655394, 196610, 4, -655395, 196610, 4, -655396, 196610, 4, -655397, 196610, 4, -655398, 196610, 4, -655399, 196610, 4, -327719, 196610, 4, -327718, 196610, 4, -327717, 196610, 4, -327716, 196610, 4, -327715, 196610, 4, -327714, 196610, 4, -327713, 196610, 4, -327712, 196610, 4, -327711, 196610, 4, -327707, 196610, 4, -327706, 196610, 4, -327705, 196610, 4, -327704, 196610, 4, -327703, 196610, 4, -327702, 196610, 4, -327701, 196610, 4, -327700, 196610, 4, -327697, 196610, 4, -327696, 196610, 4, -327695, 196610, 4, -327694, 196610, 4, -327693, 196610, 4, -327692, 196610, 4, -327691, 196610, 4, -327690, 196610, 4, -327689, 196610, 4, -327686, 196610, 4, -327685, 196610, 4, -327684, 196610, 4, -327683, 196610, 4, -327682, 196610, 4, -327681, 196610, 4, -393216, 196610, 4, -393215, 196610, 4, -393214, 196610, 4, -393211, 196610, 4, -393210, 196610, 4, -393209, 196610, 4, -393208, 196610, 4, -393207, 196610, 4, -393206, 196610, 4, -393205, 196610, 4, -393204, 196610, 4, -393203, 196610, 4, -393200, 196610, 4, -393199, 196610, 4, -393198, 196610, 4, -393197, 196610, 4, -393196, 196610, 4, -393195, 196610, 4, -393194, 196610, 4, -393193, 196610, 4, -393192, 196610, 4, -393189, 196610, 4, -393188, 196610, 4, -393187, 196610, 4, -393186, 196610, 4, -393185, 196610, 4, -393184, 196610, 4, -393183, 196610, 4, -393182, 196610, 4, -393181, 196610, 4, -65501, 196610, 4, 262179, 196610, 4, 589859, 196610, 4, -39, 196610, 4, 327641, 196610, 4, 655321, 196610, 4, 655322, 196610, 4, 655323, 196610, 4, 655324, 196610, 4, 655325, 196610, 4, 655326, 196610, 4, 655327, 196610, 4, 655328, 196610, 4, 655329, 196610, 4, 655332, 196610, 4, 655333, 196610, 4, 655334, 196610, 4, 655335, 196610, 4, 655336, 196610, 4, 655337, 196610, 4, 655338, 196610, 4, 655339, 196610, 4, 655340, 196610, 4, 655343, 196610, 4, 655344, 196610, 4, 655345, 196610, 4, 655346, 196610, 4, 655347, 196610, 4, 655348, 196610, 4, 655349, 196610, 4, 655350, 196610, 4, 655351, 196610, 4, 655354, 196610, 4, 655355, 196610, 4, 655356, 196610, 4, 655357, 196610, 4, 655358, 196610, 4, 655359, 196610, 4, 589824, 196610, 4, 589825, 196610, 4, 589826, 196610, 4, 589829, 196610, 4, 589830, 196610, 4, 589831, 196610, 4, 589832, 196610, 4, 589833, 196610, 4, 589834, 196610, 4, 589835, 196610, 4, 589836, 196610, 4, 589837, 196610, 4, 589840, 196610, 4, 589841, 196610, 4, 589842, 196610, 4, 589843, 196610, 4, 589844, 196610, 4, 589845, 196610, 4, 589846, 196610, 4, 589847, 196610, 4, 589848, 196610, 4, 589851, 196610, 4, 589852, 196610, 4, 589853, 196610, 4, 589854, 196610, 4, 589855, 196610, 4, 589856, 196610, 4, 589857, 196610, 4, 589858, 196610, 4, 262178, 196610, 4, 262177, 196610, 4, 262176, 196610, 4, 262175, 196610, 4, 262174, 196610, 4, 262173, 196610, 4, 262172, 196610, 4, 262171, 196610, 4, 262168, 196610, 4, 262167, 196610, 4, 262166, 196610, 4, 262165, 196610, 4, 262164, 196610, 4, 262163, 196610, 4, 262162, 196610, 4, 262161, 196610, 4, 262160, 196610, 4, 262157, 196610, 4, 262156, 196610, 4, 262155, 196610, 4, 262154, 196610, 4, 262153, 196610, 4, 262152, 196610, 4, 262151, 196610, 4, 262150, 196610, 4, 262149, 196610, 4, 262146, 196610, 4, 262145, 196610, 4, 262144, 196610, 4, 327679, 196610, 4, 327678, 196610, 4, 327677, 196610, 4, 327676, 196610, 4, 327675, 196610, 4, 327674, 196610, 4, 327671, 196610, 4, 327670, 196610, 4, 327669, 196610, 4, 327668, 196610, 4, 327667, 196610, 4, 327666, 196610, 4, 327665, 196610, 4, 327664, 196610, 4, 327663, 196610, 4, 327660, 196610, 4, 327659, 196610, 4, 327658, 196610, 4, 327657, 196610, 4, 327656, 196610, 4, 327655, 196610, 4, 327654, 196610, 4, 327653, 196610, 4, 327652, 196610, 4, 327649, 196610, 4, 327648, 196610, 4, 327647, 196610, 4, 327646, 196610, 4, 327645, 196610, 4, 327644, 196610, 4, 327643, 196610, 4, 327642, 196610, 4, -38, 196610, 4, -37, 196610, 4, -36, 196610, 4, -35, 196610, 4, -34, 196610, 4, -33, 196610, 4, -32, 196610, 4, -31, 196610, 4, -28, 196610, 4, -27, 196610, 4, -26, 196610, 4, -25, 196610, 4, -24, 196610, 4, -23, 196610, 4, -22, 196610, 4, -21, 196610, 4, -20, 196610, 4, -17, 196610, 4, -16, 196610, 4, -15, 196610, 4, -14, 196610, 4, -13, 196610, 4, -12, 196610, 4, -11, 196610, 4, -10, 196610, 4, -9, 196610, 4, -6, 196610, 4, -5, 196610, 4, -4, 196610, 4, -3, 196610, 4, -2, 196610, 4, -1, 196610, 4, -65536, 196610, 4, -65535, 196610, 4, -65534, 196610, 4, -65531, 196610, 4, -65530, 196610, 4, -65529, 196610, 4, -65528, 196610, 4, -65527, 196610, 4, -65526, 196610, 4, -65525, 196610, 4, -65524, 196610, 4, -65523, 196610, 4, -65520, 196610, 4, -65519, 196610, 4, -65518, 196610, 4, -65517, 196610, 4, -65516, 196610, 4, -65515, 196610, 4, -65514, 196610, 4, -65513, 196610, 4, -65512, 196610, 4, -65509, 196610, 4, -65508, 196610, 4, -65507, 196610, 4, -65506, 196610, 4, -65505, 196610, 4, -65504, 196610, 4, -65503, 196610, 4, -65502, 196610, 4, -327708, 196610, 4)
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -70)
+metadata/_edit_lock_ = true
+
+[node name="demonSpawns" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="villager" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/villager"]
+position = Vector2(730.232, -455)
+
+[node name="tank" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 105)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/tank"]
+position = Vector2(730.232, -455)
+
+[node name="footman" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 210)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/footman"]
+position = Vector2(730.232, -455)
+
+[node name="knight" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 315)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/knight"]
+position = Vector2(730.232, -455)
+
+[node name="archer" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 420)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/archer"]
+position = Vector2(730.232, -455)
+
+[node name="royal_guard" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 525)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/royal_guard"]
+position = Vector2(730.232, -455)
+
+[node name="royal_knight" type="Node2D" parent="demonSpawns"]
+position = Vector2(-157.232, 630)
+
+[node name="Spawn" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(-424.03, -455)
+
+[node name="Spawn3" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(-193.768, -455)
+
+[node name="Spawn4" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(38.232, -455)
+
+[node name="Spawn5" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(268.232, -455)
+
+[node name="Spawn6" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(499.232, -455)
+
+[node name="Spawn7" type="Marker2D" parent="demonSpawns/royal_knight"]
+position = Vector2(730.232, -455)
+
+[node name="humanSpawns" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="villager" type="Node2D" parent="humanSpawns"]
+position = Vector2(-17.516, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/villager"]
+position = Vector2(-620, 175)
+
+[node name="tank" type="Node2D" parent="humanSpawns"]
+position = Vector2(244.576, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/tank"]
+position = Vector2(-655, 175)
+
+[node name="footman" type="Node2D" parent="humanSpawns"]
+position = Vector2(480.058, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/footman"]
+position = Vector2(-655, 175)
+
+[node name="knight" type="Node2D" parent="humanSpawns"]
+position = Vector2(712.254, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/knight"]
+position = Vector2(-655, 175)
+
+[node name="archer" type="Node2D" parent="humanSpawns"]
+position = Vector2(939.972, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/archer"]
+position = Vector2(-655, 175)
+
+[node name="royal_guard" type="Node2D" parent="humanSpawns"]
+position = Vector2(1172.48, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/royal_guard"]
+position = Vector2(-655, 175)
+
+[node name="royal_knight" type="Node2D" parent="humanSpawns"]
+position = Vector2(1402.69, 2.08165e-12)
+
+[node name="Spawn" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, -455)
+
+[node name="Spawn2" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, -350)
+
+[node name="Spawn3" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, -245)
+
+[node name="Spawn4" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, -140)
+
+[node name="Spawn5" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, -35)
+
+[node name="Spawn6" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, 70)
+
+[node name="Spawn7" type="Marker2D" parent="humanSpawns/royal_knight"]
+position = Vector2(-655, 175)
+
+[connection signal="pressed" from="Interface/Back" to="Interface" method="_on_button_pressed" flags=18]
+[connection signal="pressed" from="Interface/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Interface/Pause" to="Interface" method="_on_button_2_pressed" flags=18]
+[connection signal="pressed" from="Interface/Foward" to="Interface" method="_on_button_3_pressed" flags=18]

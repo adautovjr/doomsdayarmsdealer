@@ -13,9 +13,10 @@ func _physics_process(_delta):
 	update_ui()
 
 
-func take_damage(damage: float):
+func take_damage(damage: float, attacker: Unit):
 	var tw = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tw.tween_property(self, "hp", -damage, 0.5).as_relative().from_current()
+	tw.tween_property(self, "hp", -(damage + attacker.hp), 0.5).as_relative().from_current()
+	attacker.queue_free()
 
 
 func update_ui():

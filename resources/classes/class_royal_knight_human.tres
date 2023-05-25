@@ -6,7 +6,7 @@
 script = ExtResource("1_gf77w")
 classname = "royal_knight"
 is_moving_left = true
-attack_cooldown_time = 1.2
-hp = 600
-damage = 160.0
+attack_speed = 60.0
+hp = 600.0
+damage = 80.0
 attack_range = 50.0

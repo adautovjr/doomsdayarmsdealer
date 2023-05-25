@@ -592,6 +592,7 @@ sprite_frames = SubResource("SpriteFrames_0xga8")
 animation = &"die_villager"
 
 [node name="CollisionShape2D" parent="." index="2"]
+visible = false
 position = Vector2(0, 0)
 
 [node name="DetectionArea2D" parent="." index="3"]

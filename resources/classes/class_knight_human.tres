@@ -6,7 +6,7 @@
 script = ExtResource("1_cr72h")
 classname = "knight"
 is_moving_left = true
-attack_cooldown_time = 1.3
-hp = 300
-damage = 80.0
+attack_speed = 60.0
+hp = 300.0
+damage = 40.0
 attack_range = 40.0

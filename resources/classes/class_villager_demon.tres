@@ -6,7 +6,7 @@
 script = ExtResource("1_v3t6t")
 classname = "villager"
 is_moving_left = false
-attack_cooldown_time = 1.5
-hp = 170
-damage = 25.0
+attack_speed = 60.0
+hp = 170.0
+damage = 10.0
 attack_range = 15.0

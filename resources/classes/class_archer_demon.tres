@@ -6,7 +6,7 @@
 script = ExtResource("1_pd7u2")
 classname = "archer"
 is_moving_left = false
-attack_cooldown_time = 2.0
-hp = 180
-damage = 140.0
+attack_speed = 60.0
+hp = 180.0
+damage = 70.0
 attack_range = 150.0

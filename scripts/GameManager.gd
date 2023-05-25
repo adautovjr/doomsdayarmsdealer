@@ -7,7 +7,7 @@ var player_balance = 100.0
 var card_buy_price = 20.0
 
 func _ready():
-	pass
+	reset_death_data()
 
 func increase_engine_speed():
 	Engine.time_scale = Engine.time_scale * 2
@@ -54,3 +54,16 @@ func increase_buy_price(amount: float):
 func decrease_buy_price(amount: float):
 	card_buy_price -= amount
 	Events.emit_signal("update_balance_ui")
+
+
+func save_death_data(data: Dictionary):
+	var file = FileAccess.open(ProjectSettings.globalize_path("/Users/adautoguedes/Documents/projects/personal/game_death_analysis/src/death_data.json"), FileAccess.READ_WRITE)
+	var storedData = JSON.parse_string(file.get_as_text())
+	storedData.merge(data, true)
+	file.store_line(JSON.stringify(storedData))
+
+
+func reset_death_data():
+	var file = FileAccess.open(ProjectSettings.globalize_path("/Users/adautoguedes/Documents/projects/personal/game_death_analysis/src/death_data.json"), FileAccess.WRITE)
+	file.store_line("{}")
+	file.close()

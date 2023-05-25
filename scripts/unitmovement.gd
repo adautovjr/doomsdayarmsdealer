@@ -2,6 +2,10 @@ class_name Unit extends CharacterBody2D
 
 const Cooldown = preload("res://scripts/cooldown.gd")
 const SPEED = 100.0
+const BASE_ATTACK_TIME = 1.7
+const BASE_CRITICAL_CHANCE = 0.1
+const CRITICAL_DAMAGE_ALLOWED = true
+const MAX_ATTACK_SPEED = 700
 var class_info: ClassInfo
 
 enum STATES {
@@ -12,12 +16,17 @@ enum STATES {
 
 var state: STATES = STATES.WALK
 var target = null
+var last_hit_by = null
+var hits_taken: int = 0
+var critical_hits_taken: int = 0
 var max_hp: float
 
 var is_moving_left: bool
 var attack_cooldown_time: float
 var hp:float = 100.0
 var damage: float
+var is_in_arena: bool = false
+var lifetime: float = 0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
@@ -25,8 +34,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var health_bar = $HUD/HealthBar
 var attack_cooldown = null
 
-func init(ci: ClassInfo):
+func init(ci: ClassInfo, arena = false):
 	self.class_info = ci
+	is_in_arena = arena
 
 
 func _ready():
@@ -34,7 +44,7 @@ func _ready():
 	hp = class_info.hp
 	is_moving_left = class_info.is_moving_left
 	damage = class_info.damage
-	attack_cooldown_time = class_info.attack_cooldown_time
+	attack_cooldown_time = _get_attack_cooldown_time(clampf(class_info.attack_speed, 1, MAX_ATTACK_SPEED))
 	attack_cooldown = Cooldown.new(attack_cooldown_time)
 
 	var shape = RectangleShape2D.new()
@@ -78,7 +88,8 @@ func _get_animation(delta):
 ############## Movement ##############
 
 func _get_action(delta):
-	handle_death()
+	lifetime += delta
+	handle_death(lifetime)
 	match state:
 		STATES.WALK:
 			velocity.x = -SPEED if is_moving_left else SPEED
@@ -87,7 +98,9 @@ func _get_action(delta):
 			attack_cooldown.tick(delta)
 			if attack_cooldown.is_ready() and target != null:
 				if target.has_method("take_damage"):
-					target.take_damage(damage)
+					var is_critical_hit = _is_next_attack_critical(class_info.critical_chance)
+					var calculatedDamage = damage * class_info.critical_damage if is_critical_hit else damage
+					target.take_damage(calculatedDamage, self)
 		_:
 			velocity.x = 0
 			pass
@@ -95,13 +108,27 @@ func _get_action(delta):
 
 ############## Actions ##############
 
-func take_damage(d: float):
+func take_damage(d: float, attacker: Unit):
 	var tw = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_property(self, "hp", -d, 0.5).as_relative().from_current()
+	last_hit_by = attacker
+	hits_taken += 1
+	critical_hits_taken += 1 if d > attacker.damage else 0
 
 
-func handle_death():
+func handle_death(lf):
 	if hp <= 0:
+		var death_data = {
+			str("human_" if last_hit_by.is_moving_left else "demon_", last_hit_by.class_info.classname, ";", "human_" if is_moving_left else "demon_", self.class_info.classname): {
+				"kills": 1,
+				"hits_taken": hits_taken,
+				"lifetime": lf,
+				"critical_hits_taken": critical_hits_taken
+			}
+		}
+		if is_in_arena:
+			GameManager.save_death_data(death_data)
+			last_hit_by.queue_free()
 		state = STATES.DIE
 		$HUD/DebugLabel.text = "die_" + class_info.classname
 		animated_sprite.play("die_" + class_info.classname)
@@ -189,3 +216,20 @@ func _is_valid_target(body) -> bool:
 	if (body.get_collision_layer() == 2 or body.get_collision_layer() == 4 or body.get_collision_layer() == 8 or body.get_collision_layer() == 16):
 		return true
 	return false
+
+
+func _get_attack_cooldown_time(attack_speed: float):
+	return BASE_ATTACK_TIME / (1 + (attack_speed / 100))
+
+
+func _get_critical_strike_chance(critical_chance: float):
+	return 1 - ((1 - BASE_CRITICAL_CHANCE) * (1 - (critical_chance / 100)))
+
+
+func _is_next_attack_critical(critical_chance: float) -> bool:
+	if not CRITICAL_DAMAGE_ALLOWED:
+		return false
+	var rng = RandomNumberGenerator.new()
+	var roll = rng.randf_range(0, 1)
+
+	return roll <= _get_critical_strike_chance(critical_chance)

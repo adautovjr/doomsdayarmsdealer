@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bre30ckg24v6w"]
+[gd_scene load_steps=6 format=3 uid="uid://bre30ckg24v6w"]
 
 [ext_resource type="PackedScene" uid="uid://dws5yla2y7vyd" path="res://scenes/interface.tscn" id="1_6j8ll"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="1_fbe8i"]
 [ext_resource type="TileSet" uid="uid://bqavo1og8swbs" path="res://Tileset.tres" id="1_gu67c"]
+[ext_resource type="Texture2D" uid="uid://s4iw0th8dmxx" path="res://assets/background.png" id="2_4ocmp"]
 [ext_resource type="PackedScene" uid="uid://btqtpyexmfuue" path="res://scenes/tower.tscn" id="5_0qye8"]
 
 [node name="level1" type="Node2D"]
 script = ExtResource("1_fbe8i")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(-0.999999, -514)
+scale = Vector2(4.05469, 4.05469)
+texture = ExtResource("2_4ocmp")
+metadata/_edit_lock_ = true
 
 [node name="Interface" parent="." instance=ExtResource("1_6j8ll")]
 
@@ -20,21 +27,22 @@ layer_0/tile_data = PackedInt32Array(65515, 196610, 6, 65516, 196610, 6, 65517, 
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -70)
-zoom = Vector2(3, 3)
 
 [node name="HumanSpawn" type="Marker2D" parent="."]
-position = Vector2(884, -25)
+position = Vector2(856, -25)
 
 [node name="DemonSpawn" type="Marker2D" parent="."]
-position = Vector2(-878, -25)
+position = Vector2(-846, -25)
 
 [node name="DemonTower" parent="." instance=ExtResource("5_0qye8")]
+visible = false
 position = Vector2(-878, -60)
 collision_layer = 16
 collision_mask = 2
 monitoring = false
 
 [node name="HumanTower" parent="." instance=ExtResource("5_0qye8")]
+visible = false
 position = Vector2(884, -61)
 collision_layer = 8
 collision_mask = 4

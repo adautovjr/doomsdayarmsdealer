@@ -6,7 +6,7 @@
 script = ExtResource("1_00y28")
 classname = "royal_guard"
 is_moving_left = false
-attack_cooldown_time = 1.5
-hp = 720
-damage = 60.0
+attack_speed = 60.0
+hp = 710.0
+damage = 30.0
 attack_range = 15.0
