@@ -6,8 +6,18 @@ extends Node
 var player_balance = 100.0
 var card_buy_price = 20.0
 
-func _ready():
-	reset_death_data()
+var damage_buff = {
+	"demon": 0.0,
+	"human": 0.0
+}
+var attack_speed_buff = {
+	"demon": 0.0,
+	"human": 0.0
+}
+var hp_buff = {
+	"demon": 0.0,
+	"human": 0.0
+}
 
 func increase_engine_speed():
 	Engine.time_scale = Engine.time_scale * 2
@@ -67,3 +77,22 @@ func reset_death_data():
 	var file = FileAccess.open(ProjectSettings.globalize_path("/Users/adautoguedes/Documents/projects/personal/game_death_analysis/src/death_data.json"), FileAccess.WRITE)
 	file.store_line("{}")
 	file.close()
+
+
+func handle_card_buff(cardInfo, realm):
+	if cardInfo.type != "Event":
+		return
+
+	match cardInfo.buff_type:
+		"damage":
+			damage_buff[realm] += cardInfo.value
+		"attack_speed":
+			attack_speed_buff[realm] += cardInfo.value
+		"hp":
+			hp_buff[realm] += cardInfo.value
+		_:
+			print("Card buff not implemented")
+
+
+func game_over():
+	get_tree().quit()

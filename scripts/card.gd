@@ -6,21 +6,22 @@ var unitClass
 var cardRealm
 
 
-@onready var description = $MarginContainer/VBoxContainer/HBoxContainer2/Description
+@onready var description = $MarginContainer/VBoxContainer/MarginContainer/Description
 @onready var sprite = $MarginContainer/Sprite2D
 @onready var cardSellPrice = $MarginContainer/VBoxContainer/HBoxContainer/CardSellPrice
 @onready var hp = $MarginContainer/VBoxContainer/HBoxContainer2/HP
 @onready var attack = $MarginContainer/VBoxContainer/HBoxContainer2/Attack
 
-func init(className = "tank", realm = "human"):
+func init(cardName = "tank", realm = "human"):
 	var cardDB = load("res://resources/cards/CardsDatabase.gd")
-	cardInfo = cardDB.DATA[className]
-	unitClass = className
+	cardInfo = cardDB.DATA[cardName]
+	unitClass = cardName
 	cardRealm = realm
 
 
 func _ready():
-	description.text = cardInfo.description
+	description.text = str(cardRealm.capitalize(), "\n", cardInfo.description)
+	description.visible = cardInfo.type == "Event"
 	sprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" and cardInfo.type == "Unit" else cardInfo.sprite_frame
 	cardSellPrice.text = str("$", cardInfo.sell_price)
 	var ci = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
@@ -37,6 +38,8 @@ func _on_button_pressed():
 		"Unit":
 			Events.emit_signal("spawnUnit", unitClass, cardRealm)
 			GameManager.add_money(cardInfo.sell_price)
+		"Event":
+			GameManager.handle_card_buff(cardInfo, cardRealm)
 		_:
 			print(cardInfo.type + " card not Implemented yet")
 	queue_free()

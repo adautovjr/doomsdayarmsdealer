@@ -15,16 +15,20 @@ enum STATES {
 }
 
 var state: STATES = STATES.WALK
-var target = null
-var last_hit_by = null
-var hits_taken: int = 0
-var critical_hits_taken: int = 0
+var target = null # We cannot type this since GDScript has no union typing
 var max_hp: float
 
 var is_moving_left: bool
 var attack_cooldown_time: float
-var hp:float = 100.0
+var hp: float = 100.0
 var damage: float
+
+## METADATA ##
+var last_hit_by = null
+var hits_taken: int = 0
+var critical_hits_taken: int = 0
+var total_damage_taken: float = 0
+var total_damage_dealt: float = 0
 var is_in_arena: bool = false
 var lifetime: float = 0
 
@@ -64,6 +68,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	lifetime += delta
 	_get_animation(delta)
 	_get_action(delta)
 	move_and_slide()
@@ -88,12 +93,12 @@ func _get_animation(delta):
 ############## Movement ##############
 
 func _get_action(delta):
-	lifetime += delta
-	handle_death(lifetime)
+	handle_death()
 	match state:
 		STATES.WALK:
 			velocity.x = -SPEED if is_moving_left else SPEED
 		STATES.ATTACK:
+			double_check_target()
 			velocity.x = 0
 			attack_cooldown.tick(delta)
 			if attack_cooldown.is_ready() and target != null:
@@ -109,54 +114,49 @@ func _get_action(delta):
 ############## Actions ##############
 
 func take_damage(d: float, attacker: Unit):
+	if state == STATES.DIE:
+		attacker.check_collisions_for_valid_target()
+		return
 	var tw = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_property(self, "hp", -d, 0.5).as_relative().from_current()
-	last_hit_by = attacker
-	hits_taken += 1
-	critical_hits_taken += 1 if d > attacker.damage else 0
-
-
-func handle_death(lf):
-	if hp <= 0:
-		var death_data = {
-			str("human_" if last_hit_by.is_moving_left else "demon_", last_hit_by.class_info.classname, ";", "human_" if is_moving_left else "demon_", self.class_info.classname): {
-				"kills": 1,
-				"hits_taken": hits_taken,
-				"lifetime": lf,
-				"critical_hits_taken": critical_hits_taken
-			}
-		}
-		if is_in_arena:
-			GameManager.save_death_data(death_data)
-			last_hit_by.queue_free()
-		state = STATES.DIE
-		$HUD/DebugLabel.text = "die_" + class_info.classname
-		animated_sprite.play("die_" + class_info.classname)
-		set_physics_process(false)
-		create_tween().tween_callback(queue_free).set_delay(2)
+	process_take_damage_metadata(d, attacker)
 
 
 func add_damage(value):
 	damage += value
 
+func add_max_hp(value):
+	max_hp += value
+	hp += value
+
+func add_attack_speed(value):
+	attack_cooldown_time = _get_attack_cooldown_time(clampf(class_info.attack_speed + value, 1, MAX_ATTACK_SPEED))
+	attack_cooldown = Cooldown.new(attack_cooldown_time)
+
 
 func check_collisions_for_valid_target(body = null) -> bool:
 	var is_valid_target = _is_valid_target(body)
 	if is_valid_target and target == null:
-		if (body == null):
-			var bodies = detection_area.get_overlapping_bodies()
-			for b in bodies:
-				if _is_valid_target(b):
-					_set_target(b)
-					return true
-			var areas = detection_area.get_overlapping_areas()
-			for a in areas:
-				if _is_valid_target(a):
-					_set_target(a)
-					return true
-			return false
 		_set_target(body)
 		return true
+
+	if body == null and target == null:
+		var bodies = detection_area.get_overlapping_bodies()
+		for b in bodies:
+			if _is_valid_target(b):
+				_set_target(b)
+				return true
+		var areas = detection_area.get_overlapping_areas()
+		for a in areas:
+			if _is_valid_target(a):
+				_set_target(a)
+				return true
+
+	if target != null and target is Unit and target.state == STATES.DIE:
+		_set_target(null)
+		state = STATES.WALK
+		attack_cooldown.reset()
+
 	return false
 
 
@@ -165,6 +165,10 @@ func _set_target(t):
 	if t != null:
 		state = STATES.ATTACK
 
+
+func double_check_target():
+	if not _is_valid_target(target):
+		check_collisions_for_valid_target()
 
 ############## UI ##############
 
@@ -182,28 +186,24 @@ func update_health_bar():
 ############## Events ##############
 
 func _on_detection_area_2d_body_entered(body):
-	$HUD/DebugLabel.text = body.name
-	check_collisions_for_valid_target(body)
+	if state != STATES.DIE:
+		$HUD/DebugLabel.text = body.name
+		check_collisions_for_valid_target(body)
 
 
 func _on_detection_area_2d_body_exited(_body):
-	var has_target = check_collisions_for_valid_target()
-	if not has_target:
-		_set_target(null)
-		state = STATES.WALK
-		attack_cooldown.reset()
+	if state != STATES.DIE:
+		check_collisions_for_valid_target()
 
 
 func _on_detection_area_2d_area_entered(area):
-	check_collisions_for_valid_target(area)
+	if state != STATES.DIE:
+		check_collisions_for_valid_target(area)
 
 
 func _on_detection_area_2d_area_exited(_area):
-	var has_target = check_collisions_for_valid_target()
-	if not has_target:
-		_set_target(null)
-		state = STATES.WALK
-		attack_cooldown.reset()
+	if state != STATES.DIE:
+		check_collisions_for_valid_target()
 
 
 ############## Helpers ##############
@@ -213,7 +213,10 @@ func _is_valid_target(body) -> bool:
 		return false
 	if not body.has_method("get_collision_layer"):
 		return false
-	if (body.get_collision_layer() == 2 or body.get_collision_layer() == 4 or body.get_collision_layer() == 8 or body.get_collision_layer() == 16):
+	if (body.get_collision_layer() == 2 or body.get_collision_layer() == 4):
+		if (body.state != STATES.DIE):
+			return true
+	if (body.get_collision_layer() == 8 or body.get_collision_layer() == 16):
 		return true
 	return false
 
@@ -233,3 +236,35 @@ func _is_next_attack_critical(critical_chance: float) -> bool:
 	var roll = rng.randf_range(0, 1)
 
 	return roll <= _get_critical_strike_chance(critical_chance)
+
+
+############## METADATA ##############
+
+func handle_death():
+	if hp <= 0:
+		state = STATES.DIE
+		$HUD/DebugLabel.text = "die_" + class_info.classname
+		animated_sprite.play("die_" + class_info.classname)
+		set_physics_process(false)
+		if is_in_arena:
+			var death_data = {
+				str("human_" if last_hit_by.is_moving_left else "demon_", last_hit_by.class_info.classname, ";", "human_" if is_moving_left else "demon_", self.class_info.classname): {
+					"kills": 1,
+					"hits_taken": hits_taken,
+					"lifetime": lifetime,
+					"critical_hits_taken": critical_hits_taken,
+					"total_damage_taken": total_damage_taken,
+					"total_damage_dealt": total_damage_dealt
+				}
+			}
+			GameManager.save_death_data(death_data)
+			last_hit_by.queue_free()
+		create_tween().tween_callback(queue_free).set_delay(2)
+
+
+func process_take_damage_metadata(d: float, attacker: Unit):
+	last_hit_by = attacker
+	hits_taken += 1
+	critical_hits_taken += 1 if d > attacker.damage else 0
+	total_damage_taken += d
+	attacker.total_damage_dealt += d

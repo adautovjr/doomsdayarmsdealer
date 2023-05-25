@@ -5,7 +5,7 @@ extends "res://scripts/spawner.gd"
 
 func _ready():
 	spawnTestUnits()
-	Engine.time_scale = 4
+	GameManager.reset_death_data()
 
 
 func _physics_process(_delta):

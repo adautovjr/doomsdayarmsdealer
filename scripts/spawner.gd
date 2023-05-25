@@ -34,7 +34,9 @@ func _physics_process(delta):
 func spawnUnit(className: String, realm: String):
 	var unit = units[realm].instantiate()
 	unit.init(load(str("res://resources/classes/class_", className, "_", realm, ".tres")))
-	unit.add_damage(spawned_units_counter[realm])
+	unit.add_damage(GameManager.damage_buff[realm])
+	unit.add_max_hp(GameManager.hp_buff[realm])
+	unit.add_attack_speed(GameManager.attack_speed_buff[realm])
 	spawn_points[realm].add_child(unit)
 
 

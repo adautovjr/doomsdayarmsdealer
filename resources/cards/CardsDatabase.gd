@@ -46,9 +46,27 @@ const DATA = {
 	},
 	"damage_buff": {
 		"type": "Event",
-		"description": "Can deal a lot more damage",
+		"description": "+Damage",
 		"sell_price": 5.0,
-		"sprite_frame": 71
+		"sprite_frame": 71,
+		"buff_type": "damage",
+		"value": 100
+	},
+	"attack_speed_buff": {
+		"type": "Event",
+		"description": "+Attack speed",
+		"sell_price": 1.0,
+		"sprite_frame": 71,
+		"buff_type": "attack_speed",
+		"value": 50
+	},
+	"hp_buff": {
+		"type": "Event",
+		"description": "+HP",
+		"sell_price": 8.0,
+		"sprite_frame": 71,
+		"buff_type": "hp",
+		"value": 100
 	}
 }
 

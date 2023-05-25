@@ -6,22 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="4_et8h1"]
 
 [node name="Card" type="MarginContainer"]
-custom_minimum_size = Vector2(140, 200)
-offset_right = 140.0
-offset_bottom = 200.0
+offset_right = 119.0
+offset_bottom = 196.0
 theme = ExtResource("1_aq8ae")
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 5
 script = ExtResource("2_qieoo")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 14
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 14
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 19
 
 [node name="CardBase" type="Sprite2D" parent="MarginContainer"]
 position = Vector2(63.6721, 94.459)
@@ -54,24 +49,24 @@ theme_override_font_sizes/font_size = 22
 text = "$50"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 90)
+custom_minimum_size = Vector2(104, 90)
 layout_mode = 2
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("1_aq8ae")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 14
+text = "Teste teste teste teste"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="Description" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-visible = false
-clip_contents = false
-custom_minimum_size = Vector2(128, 2.08165e-12)
-layout_mode = 2
-theme = ExtResource("1_aq8ae")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_separation = 0
-theme_override_constants/outline_size = 8
-text = "Teste teste teste teste"
-fit_content = true
-autowrap_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(5, 2.08165e-12)

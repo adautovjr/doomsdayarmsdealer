@@ -32,7 +32,7 @@ func _on_buy_card_button_pressed():
 
 
 func add_cards_to_players_hand(card):
-	GameManager.increase_buy_price(2)
+	#GameManager.increase_buy_price(2)
 	if hand:
 		hand.add_child(card)
 
