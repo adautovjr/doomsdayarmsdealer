@@ -21,6 +21,8 @@ var max_hp: float
 var is_moving_left: bool
 var attack_cooldown_time: float
 var hp: float = 100.0
+var armor: int = 0
+var armor_penetration: int = 0
 var damage: float
 
 ## METADATA ##
@@ -48,6 +50,8 @@ func _ready():
 	hp = class_info.hp
 	is_moving_left = class_info.is_moving_left
 	damage = class_info.damage
+	armor = class_info.armor
+	armor_penetration = class_info.armor_penetration
 	attack_cooldown_time = _get_attack_cooldown_time(clampf(class_info.attack_speed, 1, MAX_ATTACK_SPEED))
 	attack_cooldown = Cooldown.new(attack_cooldown_time)
 
@@ -105,6 +109,7 @@ func _get_action(delta):
 				if target.has_method("take_damage"):
 					var is_critical_hit = _is_next_attack_critical(class_info.critical_chance)
 					var calculatedDamage = damage * class_info.critical_damage if is_critical_hit else damage
+					calculatedDamage *= _get_damage_reduction_multiplier(calculatedDamage, armor_penetration)
 					target.take_damage(calculatedDamage, self)
 		_:
 			velocity.x = 0
@@ -132,6 +137,14 @@ func add_max_hp(value):
 func add_attack_speed(value):
 	attack_cooldown_time = _get_attack_cooldown_time(clampf(class_info.attack_speed + value, 1, MAX_ATTACK_SPEED))
 	attack_cooldown = Cooldown.new(attack_cooldown_time)
+
+
+func add_armor(value):
+	armor += value
+
+
+func add_armor_penetration(value):
+	armor_penetration += value
 
 
 func check_collisions_for_valid_target(body = null) -> bool:
@@ -236,6 +249,17 @@ func _is_next_attack_critical(critical_chance: float) -> bool:
 	var roll = rng.randf_range(0, 1)
 
 	return roll <= _get_critical_strike_chance(critical_chance)
+
+
+func _get_damage_reduction_multiplier(d: float, enemy_armor_penetration: int):
+	var this_unit_armor = armor
+	if enemy_armor_penetration > 0:
+		this_unit_armor *= 1 - (enemy_armor_penetration / 100)
+
+	if this_unit_armor < 0:
+		return 1 - ((0.06 * this_unit_armor) / (1 + 0.06 * -this_unit_armor))
+
+	return 1 - ((0.06 * this_unit_armor) / (1 + 0.06 * this_unit_armor))
 
 
 ############## METADATA ##############

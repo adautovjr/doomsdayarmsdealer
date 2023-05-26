@@ -18,6 +18,14 @@ var hp_buff = {
 	"demon": 0.0,
 	"human": 0.0
 }
+var armor_buff = {
+	"demon": 0,
+	"human": 0
+}
+var armor_penetration_buff = {
+	"demon": 0,
+	"human": 0
+}
 
 func increase_engine_speed():
 	Engine.time_scale = Engine.time_scale * 2
@@ -90,6 +98,10 @@ func handle_card_buff(cardInfo, realm):
 			attack_speed_buff[realm] += cardInfo.value
 		"hp":
 			hp_buff[realm] += cardInfo.value
+		"armor":
+			armor_buff[realm] += cardInfo.value
+		"armor_penetration":
+			armor_penetration_buff[realm] += cardInfo.value
 		_:
 			print("Card buff not implemented")
 

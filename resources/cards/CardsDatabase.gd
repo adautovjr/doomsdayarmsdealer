@@ -67,6 +67,22 @@ const DATA = {
 		"sprite_frame": 71,
 		"buff_type": "hp",
 		"value": 100
+	},
+	"armor_buff": {
+		"type": "Event",
+		"description": "+Armor",
+		"sell_price": 8.0,
+		"sprite_frame": 71,
+		"buff_type": "armor",
+		"value": 10
+	},
+	"armor_penetration_buff": {
+		"type": "Event",
+		"description": "+Armor penetration",
+		"sell_price": 8.0,
+		"sprite_frame": 71,
+		"buff_type": "armor_penetration",
+		"value": 5
 	}
 }
 

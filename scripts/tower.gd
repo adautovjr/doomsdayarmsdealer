@@ -46,6 +46,9 @@ func update_HUD_info():
 	var hp_buff = GameManager.hp_buff[realm]
 	var attack_speed_buff = GameManager.attack_speed_buff[realm]
 	var damage_buff = GameManager.damage_buff[realm]
+	var armor_buff = GameManager.armor_buff[realm]
+	var armor_pen_buff = GameManager.armor_penetration_buff[realm]
+
 	if hp_buff == 0:
 		$HUD/HPInfo.text = ""
 	else:
@@ -60,3 +63,15 @@ func update_HUD_info():
 		$HUD/DamageInfo.text = ""
 	else:
 		$HUD/DamageInfo.text = str("DMG         +", damage_buff)
+
+	if armor_buff == 0:
+		$HUD/ArmorInfo.text = ""
+	else:
+		$HUD/ArmorInfo.text = str("ARMOR            +", armor_buff)
+
+	if armor_pen_buff == 0:
+		$HUD/ArmorPenetrationInfo.text = ""
+	else:
+		$HUD/ArmorPenetrationInfo.text = str("ARMOR PEN    +", armor_pen_buff)
+
+
