@@ -5,6 +5,9 @@ extends Node
 
 var player_balance = 100.0
 var card_buy_price = 20.0
+var discard_hand_price = 50.0
+var swap_hand_price = 100.0
+var swap_hand_cooldown_time = 60.0
 
 var damage_buff = {
 	"demon": 0.0,
@@ -25,6 +28,16 @@ var armor_buff = {
 var armor_penetration_buff = {
 	"demon": 0,
 	"human": 0
+}
+
+var unit_spawn_weight = {
+	"villager": 0.0,
+	"tank": 0.0,
+	"footman": 0.0,
+	"knight": 0.0,
+	"archer": 0.0,
+	"royal_guard": 0.0,
+	"royal_knight": 0.0
 }
 
 func increase_engine_speed():

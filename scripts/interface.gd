@@ -1,16 +1,41 @@
 extends CanvasLayer
 
+const Cooldown = preload("res://scripts/cooldown.gd")
+
 @onready var hand = $MarginContainer/Hand
 @onready var demonCardBuyPriceLabel = $Demon/CardBuyPrice
 @onready var humanCardBuyPriceLabel = $Human/CardBuyPrice
 @onready var playerBalanceLabel = $MarginContainer3/PlayerBalance
+@onready var discardHandPriceLabel = $Discard/DiscardPrice
+@onready var swapHandPriceLabel = $Swap/SwapPrice
+@onready var swapHandProgressBar = $Swap/Node2D/TextureProgressBar
+
+var swap_hand_cooldown = null
+var swap_hand_ready = false
 
 func _ready():
 	Events.connect("add_cards_to_players_hand", add_cards_to_players_hand)
 	Events.connect("update_balance_ui", update_balance_ui)
 	GameManager.spawnRandomCards(5)
+	swap_hand_cooldown = Cooldown.new(GameManager.swap_hand_cooldown_time)
+	swap_hand_cooldown.reset()
+
+func _physics_process(delta):
+
+	swap_hand_cooldown.tick(delta)
+	swapHandProgressBar.value = swap_hand_cooldown.time * 100 / GameManager.swap_hand_cooldown_time
+	var isCDReady = swap_hand_cooldown.is_ready()
+	if isCDReady and not swap_hand_ready:
+		swap_hand_ready = true
+	if swap_hand_ready:
+		swapHandProgressBar.visible = false
+	else:
+		swapHandProgressBar.visible = true
+
 	update_balance_ui()
 
+
+############## Connections ##############
 
 func _on_button_pressed():
 	GameManager.increase_engine_speed()
@@ -25,7 +50,7 @@ func _on_button_3_pressed():
 
 
 func _on_buy_human_card_button_pressed():
-	if GameManager.player_balance >= GameManager.card_buy_price and hand.get_child_count() <= 6:
+	if GameManager.player_balance >= GameManager.card_buy_price and hand.get_child_count() <= 7:
 		GameManager.spend_money(GameManager.card_buy_price)
 		GameManager.spawnRandomCards(1, "human")
 	else:
@@ -33,11 +58,38 @@ func _on_buy_human_card_button_pressed():
 
 
 func _on_buy_demon_card_button_pressed():
-	if GameManager.player_balance >= GameManager.card_buy_price and hand.get_child_count() <= 6:
+	if GameManager.player_balance >= GameManager.card_buy_price and hand.get_child_count() <= 7:
 		GameManager.spend_money(GameManager.card_buy_price)
 		GameManager.spawnRandomCards(1, "demon")
 	else:
 		show_balance_unavailable_warning()
+
+
+func _on_discard_button_pressed():
+	if hand.get_child_count() >= 1:
+		GameManager.add_money((GameManager.card_buy_price / 2) * hand.get_child_count())
+		discard_hand()
+
+
+func _on_swap_button_pressed():
+	var cardsCount = hand.get_child_count()
+	if GameManager.player_balance >= GameManager.swap_hand_price and cardsCount >= 1:
+		if swap_hand_ready:
+			swap_hand_ready = false
+			swap_hand_cooldown.restart()
+			GameManager.spend_money(GameManager.swap_hand_price)
+			discard_hand()
+			GameManager.spawnRandomCards(cardsCount)
+	else:
+		show_balance_unavailable_warning()
+
+
+############## Actions ##############
+
+func discard_hand():
+	if hand:
+		for n in hand.get_children():
+			n.queue_free()
 
 
 func add_cards_to_players_hand(card):
@@ -53,11 +105,19 @@ func show_balance_unavailable_warning():
 func change_color(color: Color):
 	demonCardBuyPriceLabel.add_theme_color_override("font_outline_color", color)
 	humanCardBuyPriceLabel.add_theme_color_override("font_outline_color", color)
+	swapHandPriceLabel.add_theme_color_override("font_outline_color", color)
 	playerBalanceLabel.add_theme_color_override("font_outline_color", color)
 
 
 func update_balance_ui():
-	if playerBalanceLabel and demonCardBuyPriceLabel and humanCardBuyPriceLabel:
+	if playerBalanceLabel:
 		playerBalanceLabel.text = str("$ ", GameManager.player_balance)
+	if demonCardBuyPriceLabel:
 		demonCardBuyPriceLabel.text = str("$ ", GameManager.card_buy_price)
+	if humanCardBuyPriceLabel:
 		humanCardBuyPriceLabel.text = str("$ ", GameManager.card_buy_price)
+	if discardHandPriceLabel:
+		discardHandPriceLabel.text = str("$ ", str((GameManager.card_buy_price / 2) * hand.get_child_count()))
+	if swapHandPriceLabel:
+		swapHandPriceLabel.text = str("$ ", GameManager.swap_hand_price)
+

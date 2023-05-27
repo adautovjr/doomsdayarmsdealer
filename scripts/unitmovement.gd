@@ -189,7 +189,7 @@ func update_ui():
 	update_health_bar()
 
 func update_health_bar():
-	if hp == max_hp:
+	if hp == max_hp or hp <= 0:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true

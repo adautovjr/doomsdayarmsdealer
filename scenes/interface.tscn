@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dws5yla2y7vyd"]
+[gd_scene load_steps=7 format=3 uid="uid://dws5yla2y7vyd"]
 
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_jw04m"]
 [ext_resource type="Texture2D" uid="uid://cyr8rl1emghgj" path="res://assets/CuteCards - asset pack/CuteCards.png" id="2_n7dwr"]
 [ext_resource type="Theme" uid="uid://cmqheujsf21rb" path="res://theme.tres" id="3_7ns5i"]
+[ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="4_q6dhp"]
+[ext_resource type="Texture2D" uid="uid://bj877avfvyhiw" path="res://assets/circle_orange.png" id="5_dnyvl"]
 
 [sub_resource type="Theme" id="Theme_aek7s"]
 Button/font_sizes/font_size = 30
@@ -87,6 +89,49 @@ horizontal_alignment = 1
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
+[node name="Discard" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -299.0
+offset_right = 113.0
+offset_bottom = -143.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 32
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Discard"]
+position = Vector2(66, 68)
+texture = ExtResource("2_n7dwr")
+hframes = 15
+vframes = 4
+frame = 14
+
+[node name="Icon" type="Sprite2D" parent="Discard"]
+position = Vector2(66, 47)
+scale = Vector2(1.9375, 1.9375)
+texture = ExtResource("4_q6dhp")
+hframes = 9
+vframes = 16
+frame = 141
+
+[node name="DiscardPrice" type="Label" parent="Discard"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 1
+theme = ExtResource("3_7ns5i")
+theme_override_colors/font_color = Color(0.345098, 1, 0.317647, 1)
+theme_override_colors/font_outline_color = Color(0, 0.564706, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 25
+text = "$ 25"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Discard"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
 [node name="Human" type="MarginContainer" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -120,6 +165,63 @@ horizontal_alignment = 1
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
+[node name="Swap" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -301.0
+offset_bottom = -142.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 32
+
+[node name="Sprite2D" type="Sprite2D" parent="Swap"]
+position = Vector2(48, 68)
+texture = ExtResource("2_n7dwr")
+hframes = 15
+vframes = 4
+frame = 14
+
+[node name="Icon" type="Sprite2D" parent="Swap"]
+position = Vector2(48, 47)
+rotation = 3.14159
+scale = Vector2(1.9375, 1.9375)
+texture = ExtResource("4_q6dhp")
+hframes = 9
+vframes = 16
+frame = 141
+
+[node name="SwapPrice" type="Label" parent="Swap"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 1
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 25
+text = "$ 25"
+horizontal_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="Swap"]
+scale = Vector2(0.03, 0.03)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Swap/Node2D"]
+offset_left = 633.336
+offset_top = 500.0
+offset_right = 2681.34
+offset_bottom = 2548.0
+value = 50.0
+fill_mode = 4
+texture_progress = ExtResource("5_dnyvl")
+
+[node name="Button" type="Button" parent="Swap"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+metadata/_edit_lock_ = true
+
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -144,4 +246,6 @@ text = "$ 100"
 [connection signal="pressed" from="Pause" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Foward" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="Demon/Button" to="." method="_on_buy_demon_card_button_pressed"]
+[connection signal="pressed" from="Discard/Button" to="." method="_on_discard_button_pressed"]
 [connection signal="pressed" from="Human/Button" to="." method="_on_buy_human_card_button_pressed"]
+[connection signal="pressed" from="Swap/Button" to="." method="_on_swap_button_pressed"]

@@ -17,3 +17,7 @@ func is_ready():
 
 func reset():
 	time = 0
+
+
+func restart():
+	time = cooldown

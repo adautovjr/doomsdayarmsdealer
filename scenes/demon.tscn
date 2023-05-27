@@ -15,11 +15,11 @@ region = Rect2(160, 352, 32, 32)
 atlas = ExtResource("2_mndbl")
 region = Rect2(192, 352, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3swf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7677"]
 atlas = ExtResource("2_mndbl")
 region = Rect2(160, 288, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l8wmp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccm4q"]
 atlas = ExtResource("2_mndbl")
 region = Rect2(128, 288, 32, 32)
 
@@ -281,10 +281,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t3swf")
+"texture": SubResource("AtlasTexture_j7677")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l8wmp")
+"texture": SubResource("AtlasTexture_ccm4q")
 }],
 "loop": true,
 "name": &"attack_footman",
@@ -602,10 +602,9 @@ animations = [{
 collision_layer = 4
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-visible = true
 position = Vector2(-3, -20)
 sprite_frames = SubResource("SpriteFrames_31uyu")
-animation = &"die_villager"
+animation = &"idle_villager"
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(2.08165e-12, -7)

@@ -125,6 +125,26 @@ static func get_unit_classes() -> Dictionary:
 	return classes
 
 
-static func get_random_unit() -> Dictionary:
+static func get_random_unit():
 	var units = get_unit_classes()
-	return units
+	var unitNames = units.keys()
+	var unitInfos = units.values()
+	var unitInfosCopy: Array = unitInfos.duplicate(true)
+	var totalProbability: int = 0
+
+	for i in unitInfos.size():
+		totalProbability += clampi(int(unitInfosCopy[i].chance) + GameManager.unit_spawn_weight[unitNames[i]], 10, 90)
+		continue
+
+	var chosenOptionInt: int = GameManager.rand_int(0, totalProbability)
+
+	var growingProbability: int = 0
+	for a in unitInfosCopy.size():
+		growingProbability += clampi(int(unitInfosCopy[a].chance) + GameManager.unit_spawn_weight[unitNames[a]], 10, 90)
+		unitInfosCopy[a].chance = growingProbability
+
+		if unitInfosCopy[a].chance > chosenOptionInt:
+			return unitNames[a]
+
+		if chosenOptionInt <= unitInfosCopy[unitInfosCopy.size()-1].chance:
+			return unitNames[unitInfosCopy.size()-1]

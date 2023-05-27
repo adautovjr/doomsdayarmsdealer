@@ -588,9 +588,8 @@ animations = [{
 collision_layer = 2
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-visible = true
 sprite_frames = SubResource("SpriteFrames_0xga8")
-animation = &"die_villager"
+animation = &"idle_villager"
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(2.08165e-12, -7)
