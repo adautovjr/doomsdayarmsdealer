@@ -37,15 +37,43 @@ func togglePause():
 	Engine.time_scale = 0 if Engine.time_scale != 0 else 1
 
 
-func spawnRandomCards(qty: int):
-	var cards = cardDB.DATA.keys()
-	var rng = RandomNumberGenerator.new()
+func spawnRandomCards(qty: int, realm = null):
 	var realms = ["demon", "human"]
 
 	for i in range(0, qty):
-		var index = rng.randi_range(0, cards.size() - 1)
-		rng.randomize()
-		spawnCard(cards[index], realms[rng.randi_range(0, 1)])
+		var cardName = weighted_random_card_choice()
+		var cardRealm = realm if realm else realms[rand_int(0, 1)]
+		if armor_penetration_buff[cardRealm] >= 95:
+			if cardName == "armor_penetration_buff":
+					cardName = "armor_buff"
+		spawnCard(cardName, cardRealm)
+
+func rand_int(begin: int = 0, end: int = 10):
+	randomize()
+	return randi() % (end+1) + begin
+
+func weighted_random_card_choice():
+	var cardKeys = cardDB.DATA.keys()
+	var cards = cardDB.DATA.values()
+	var cardsCopy: Array = cards.duplicate(true)
+	var totalProbability: int = 0
+
+	for i in cards.size():
+		totalProbability += int(cardsCopy[i].chance)
+		continue
+
+	var chosenOptionInt: int = rand_int(0, totalProbability)
+
+	var growingProbability: int = 0
+	for a in cardsCopy.size():
+		growingProbability += int(cardsCopy[a].chance)
+		cardsCopy[a].chance = growingProbability
+
+		if cardsCopy[a].chance > chosenOptionInt:
+			return cardKeys[a]
+
+		if chosenOptionInt <= cardsCopy[cardsCopy.size()-1].chance:
+			return cardKeys[cardsCopy.size()-1]
 
 
 func spawnCard(cardName: String, realm: String):
@@ -87,21 +115,21 @@ func reset_death_data():
 	file.close()
 
 
-func handle_card_buff(cardInfo, realm):
+func handle_card_buff(cardInfo, eventLevel, realm):
 	if cardInfo.type != "Event":
 		return
 
 	match cardInfo.buff_type:
 		"damage":
-			damage_buff[realm] += cardInfo.value
+			damage_buff[realm] += cardInfo.value * eventLevel
 		"attack_speed":
-			attack_speed_buff[realm] += cardInfo.value
+			attack_speed_buff[realm] += cardInfo.value * eventLevel
 		"hp":
-			hp_buff[realm] += cardInfo.value
+			hp_buff[realm] += cardInfo.value * eventLevel
 		"armor":
-			armor_buff[realm] += cardInfo.value
+			armor_buff[realm] += cardInfo.value * eventLevel
 		"armor_penetration":
-			armor_penetration_buff[realm] += cardInfo.value
+			armor_penetration_buff[realm] += cardInfo.value * eventLevel
 		_:
 			print("Card buff not implemented")
 

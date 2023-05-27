@@ -4,6 +4,7 @@ class_name Tower
 @export var hp = 2000
 @export var realm: String = ""
 var max_hp: float
+const MAX_ARMOR_PENETRATION = 95
 @onready var health_bar = $HUD/HealthBar
 
 
@@ -72,6 +73,6 @@ func update_HUD_info():
 	if armor_pen_buff == 0:
 		$HUD/ArmorPenetrationInfo.text = ""
 	else:
-		$HUD/ArmorPenetrationInfo.text = str("ARMOR PEN    +", armor_pen_buff)
+		$HUD/ArmorPenetrationInfo.text = str("ARMOR PEN    +", "MAX" if armor_pen_buff >= MAX_ARMOR_PENETRATION else armor_pen_buff)
 
 

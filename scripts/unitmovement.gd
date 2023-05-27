@@ -22,7 +22,7 @@ var is_moving_left: bool
 var attack_cooldown_time: float
 var hp: float = 100.0
 var armor: int = 0
-var armor_penetration: int = 0
+var armor_penetration: float = 0
 var damage: float
 
 ## METADATA ##
@@ -109,7 +109,7 @@ func _get_action(delta):
 				if target.has_method("take_damage"):
 					var is_critical_hit = _is_next_attack_critical(class_info.critical_chance)
 					var calculatedDamage = damage * class_info.critical_damage if is_critical_hit else damage
-					calculatedDamage *= _get_damage_reduction_multiplier(calculatedDamage, armor_penetration)
+					calculatedDamage *= _get_damage_reduction_multiplier(armor_penetration)
 					target.take_damage(calculatedDamage, self)
 		_:
 			velocity.x = 0
@@ -251,7 +251,7 @@ func _is_next_attack_critical(critical_chance: float) -> bool:
 	return roll <= _get_critical_strike_chance(critical_chance)
 
 
-func _get_damage_reduction_multiplier(d: float, enemy_armor_penetration: int):
+func _get_damage_reduction_multiplier(enemy_armor_penetration: float):
 	var this_unit_armor = armor
 	if enemy_armor_penetration > 0:
 		this_unit_armor *= 1 - (enemy_armor_penetration / 100)
@@ -269,6 +269,7 @@ func handle_death():
 		state = STATES.DIE
 		$HUD/DebugLabel.text = "die_" + class_info.classname
 		animated_sprite.play("die_" + class_info.classname)
+		GameManager.add_money(2)
 		set_physics_process(false)
 		if is_in_arena:
 			var death_data = {

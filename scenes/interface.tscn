@@ -57,7 +57,7 @@ layout_mode = 2
 theme_override_constants/separation = 1
 alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="Demon" type="MarginContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -67,14 +67,14 @@ grow_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Sprite2D" type="Sprite2D" parent="MarginContainer2"]
+[node name="Sprite2D" type="Sprite2D" parent="Demon"]
 position = Vector2(66, 68)
 texture = ExtResource("2_n7dwr")
 hframes = 15
 vframes = 4
 frame = 44
 
-[node name="CardBuyPrice" type="Label" parent="MarginContainer2"]
+[node name="CardBuyPrice" type="Label" parent="Demon"]
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("3_7ns5i")
@@ -83,18 +83,57 @@ theme_override_font_sizes/font_size = 25
 text = "$ 25"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer2"]
+[node name="Button" type="Button" parent="Demon"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Human" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -156.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="Human"]
+position = Vector2(48, 68)
+texture = ExtResource("2_n7dwr")
+hframes = 15
+vframes = 4
+frame = 44
+
+[node name="CardBuyPrice" type="Label" parent="Human"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 25
+text = "$ 25"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Human"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
-offset_right = 336.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 168.0
 offset_bottom = 161.0
+grow_horizontal = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 
 [node name="PlayerBalance" type="Label" parent="MarginContainer3"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("3_7ns5i")
 theme_override_constants/outline_size = 20
@@ -104,4 +143,5 @@ text = "$ 100"
 [connection signal="pressed" from="Back" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Pause" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Foward" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="MarginContainer2/Button" to="." method="_on_buy_card_button_pressed"]
+[connection signal="pressed" from="Demon/Button" to="." method="_on_buy_demon_card_button_pressed"]
+[connection signal="pressed" from="Human/Button" to="." method="_on_buy_human_card_button_pressed"]

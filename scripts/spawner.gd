@@ -45,9 +45,9 @@ func _handle_demon_spawns(delta):
 
 	if demon_spawn_cooldown.is_ready():
 		var tw = create_tween()
-		tw.tween_callback(spawnUnit.bind("villager", "demon")).set_delay(0.5)
-		tw.tween_callback(spawnUnit.bind("footman", "demon")).set_delay(0.5)
-		tw.tween_callback(spawnUnit.bind("archer", "demon")).set_delay(0.5)
+		tw.tween_callback(spawnUnit.bind("villager", "demon")).set_delay(0.8)
+		tw.tween_callback(spawnUnit.bind("footman", "demon")).set_delay(0.8)
+		tw.tween_callback(spawnUnit.bind("archer", "demon")).set_delay(0.8)
 		spawned_units_counter.demon += 3
 
 
@@ -56,7 +56,7 @@ func _handle_human_spawns(delta):
 
 	if human_spawn_cooldown.is_ready():
 		var tw = create_tween()
-		tw.tween_callback(spawnUnit.bind("villager", "human")).set_delay(0.5)
-		tw.tween_callback(spawnUnit.bind("footman", "human")).set_delay(0.5)
-		tw.tween_callback(spawnUnit.bind("archer", "human")).set_delay(0.5)
+		tw.tween_callback(spawnUnit.bind("villager", "human")).set_delay(0.8)
+		tw.tween_callback(spawnUnit.bind("footman", "human")).set_delay(0.8)
+		tw.tween_callback(spawnUnit.bind("archer", "human")).set_delay(0.8)
 		spawned_units_counter.human += 3

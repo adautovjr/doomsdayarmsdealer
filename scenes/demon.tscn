@@ -602,13 +602,13 @@ animations = [{
 collision_layer = 4
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-position = Vector2(-3, -5)
+visible = true
+position = Vector2(-3, -20)
 sprite_frames = SubResource("SpriteFrames_31uyu")
 animation = &"die_villager"
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = false
-position = Vector2(0, 0)
+position = Vector2(2.08165e-12, -7)
 
 [node name="DetectionArea2D" parent="." index="3"]
 position = Vector2(50, 0)

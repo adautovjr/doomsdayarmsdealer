@@ -6,7 +6,7 @@ class_name ClassInfo
 @export var attack_speed: float = 100
 @export var hp: float = 100
 @export var armor: int = 0
-@export var armor_penetration: int = 0
+@export var armor_penetration: float = 0.0
 @export var damage: float
 @export var attack_range: float = 15.0
 @export var critical_chance: float = 20
