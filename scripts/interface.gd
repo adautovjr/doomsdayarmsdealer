@@ -3,11 +3,11 @@ extends CanvasLayer
 const Cooldown = preload("res://scripts/cooldown.gd")
 
 @onready var hand = $MarginContainer/Hand
-@onready var demonCardBuyPriceLabel = $Demon/CardBuyPrice
-@onready var humanCardBuyPriceLabel = $Human/CardBuyPrice
-@onready var playerBalanceLabel = $MarginContainer3/PlayerBalance
+@onready var demonCardBuyPriceLabel = $Demon/MarginContainer/CardBuyPrice
+@onready var humanCardBuyPriceLabel = $Human/MarginContainer/CardBuyPrice
+@onready var playerBalanceLabel = $MatchInfo/PlayerBalance
 @onready var discardHandPriceLabel = $Discard/DiscardPrice
-@onready var swapHandPriceLabel = $Swap/SwapPrice
+@onready var swapHandPriceLabel = $Swap/MarginContainer/SwapPrice
 @onready var swapHandProgressBar = $Swap/Node2D/TextureProgressBar
 
 var swap_hand_cooldown = null
@@ -111,13 +111,13 @@ func change_color(color: Color):
 
 func update_balance_ui():
 	if playerBalanceLabel:
-		playerBalanceLabel.text = str("$ ", GameManager.player_balance)
+		playerBalanceLabel.text = str("$", GameManager.player_balance)
 	if demonCardBuyPriceLabel:
-		demonCardBuyPriceLabel.text = str("$ ", GameManager.card_buy_price)
+		demonCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
 	if humanCardBuyPriceLabel:
-		humanCardBuyPriceLabel.text = str("$ ", GameManager.card_buy_price)
+		humanCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
 	if discardHandPriceLabel:
-		discardHandPriceLabel.text = str("$ ", str((GameManager.card_buy_price / 2) * hand.get_child_count()))
+		discardHandPriceLabel.text = str("$", str((GameManager.card_buy_price / 2) * hand.get_child_count()))
 	if swapHandPriceLabel:
-		swapHandPriceLabel.text = str("$ ", GameManager.swap_hand_price)
+		swapHandPriceLabel.text = str("$", GameManager.swap_hand_price)
 

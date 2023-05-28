@@ -2,18 +2,24 @@ extends MarginContainer
 class_name Card
 
 var cardInfo = null
+var classInfo = null
 var unitClass
 var cardRealm
 var eventLevel = 1
 
 
-@onready var description = $MarginContainer/VBoxContainer/MarginContainer/Description
-@onready var sprite = $MarginContainer/Sprite2D
+@onready var cardBase = $MarginContainer/CardBase
+@onready var unitSprite = $MarginContainer/UnitSprite
+@onready var eventSprite = $MarginContainer/EventSprite
 @onready var modifier = $MarginContainer/Modifier
-@onready var cardSellPrice = $MarginContainer/VBoxContainer/HBoxContainer/CardSellPrice
-@onready var hp = $MarginContainer/VBoxContainer/HBoxContainer2/HP
-@onready var attack = $MarginContainer/VBoxContainer/HBoxContainer2/Attack
-
+@onready var cardSellPrice = $MarginContainer/InfoContainer/SellPriceContainer/MarginContainer/CardSellPrice
+@onready var statsContainer = $MarginContainer/InfoContainer/StatsContainer
+@onready var hp = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats1Container/HP
+@onready var armor = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats1Container/Armor
+@onready var damage = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats2Container/Damage
+@onready var armorPen = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats2Container/ArmorPenetration
+@onready var attackSpeed = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats3Container/AttackSpeed
+@onready var criticalChance = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats3Container/CriticalChance
 
 const EVENT_LEVEL_WEIGHTS = {
 	-3: 15,
@@ -30,43 +36,56 @@ func init(cardName = "tank", realm = "human"):
 	unitClass = cardName
 	cardRealm = realm
 
-
 func _ready():
-	description.visible = cardInfo.type == "Event"
+	statsContainer.visible = cardInfo.type == "Unit"
 	cardSellPrice.text = str("$", cardInfo.sell_price)
 	if cardInfo.type == "Unit":
-		description.text = str(cardRealm.capitalize(), "\n", cardInfo.description)
-		sprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" else cardInfo.sprite_frame
+		cardBase.frame = 1 if cardRealm == "human" else 4
+		unitSprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" else cardInfo.sprite_frame
+		unitSprite.visible = true
+		eventSprite.visible = false
 		modifier.frame = 143
-		var ci = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
-		if ci:
-			hp.text = str(ci.hp)
-			attack.text = str(ci.damage)
-			return
+		statsContainer.visible = true
+		classInfo = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
+		return
 	if cardInfo.type == "Event":
-		sprite.frame = cardInfo.sprite_frame[cardRealm]
+		cardBase.frame = 2 if cardRealm == "human" else 5
+		eventSprite.visible = true
+		eventSprite.frame = cardInfo.sprite_frame[cardRealm]
+		unitSprite.frame = 143
+		statsContainer.visible = false
 		eventLevel = weighted_random_level_choice()
+		modifier.visible = true
 		match eventLevel:
 			-3:
 				modifier.frame = 139
-				description.text = str(cardRealm.capitalize(), "\n", "---", cardInfo.description)
 			-2:
 				modifier.frame = 137
-				description.text = str(cardRealm.capitalize(), "\n", "--", cardInfo.description)
 			-1:
 				modifier.frame = 135
-				description.text = str(cardRealm.capitalize(), "\n", "-", cardInfo.description)
 			2:
 				modifier.frame = 138
-				description.text = str(cardRealm.capitalize(), "\n", "++", cardInfo.description)
 			3:
 				modifier.frame = 140
-				description.text = str(cardRealm.capitalize(), "\n", "+++", cardInfo.description)
 			_:
 				modifier.frame = 136
-				description.text = str(cardRealm.capitalize(), "\n", "+", cardInfo.description)
-	hp.text = ""
-	attack.text = ""
+
+
+func _physics_process(_delta):
+	update_unit_stats()
+
+
+func update_unit_stats():
+	if not classInfo:
+		return
+
+	hp.text = str(classInfo.hp + GameManager.hp_buff[cardRealm])
+	armor.text = str(classInfo.armor + GameManager.armor_buff[cardRealm])
+	damage.text = str(classInfo.damage + GameManager.damage_buff[cardRealm])
+	armorPen.text = str(classInfo.armor_penetration + GameManager.armor_penetration_buff[cardRealm])
+	attackSpeed.text = str(classInfo.attack_speed + GameManager.attack_speed_buff[cardRealm])
+	criticalChance.text = str(classInfo.critical_chance, "%")
+
 
 func _on_button_pressed():
 	print(cardInfo)

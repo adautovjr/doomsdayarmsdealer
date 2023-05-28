@@ -3,7 +3,7 @@ extends Node
 @onready var cardDB = preload("res://resources/cards/CardsDatabase.gd")
 @onready var cardScene = preload("res://scenes/Card.tscn")
 
-var player_balance = 100.0
+var player_balance = 1000000.0
 var card_buy_price = 20.0
 var discard_hand_price = 50.0
 var swap_hand_price = 100.0
