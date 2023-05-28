@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bre30ckg24v6w"]
+[gd_scene load_steps=10 format=3 uid="uid://dlfd571auqljr"]
 
+[ext_resource type="Script" path="res://scripts/level1.gd" id="1_2r7er"]
 [ext_resource type="PackedScene" uid="uid://dws5yla2y7vyd" path="res://scenes/interface.tscn" id="1_6j8ll"]
-[ext_resource type="Script" path="res://scripts/spawner.gd" id="1_fbe8i"]
 [ext_resource type="TileSet" uid="uid://bqavo1og8swbs" path="res://Tileset.tres" id="1_gu67c"]
 [ext_resource type="Texture2D" uid="uid://s4iw0th8dmxx" path="res://assets/background.png" id="2_4ocmp"]
 [ext_resource type="Script" path="res://scripts/tower.gd" id="5_66f8i"]
@@ -11,8 +11,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jem38"]
 size = Vector2(126, 102)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66is8"]
+size = Vector2(1418, 194)
+
 [node name="level1" type="Node2D"]
-script = ExtResource("1_fbe8i")
+script = ExtResource("1_2r7er")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, -28)
@@ -113,3 +116,13 @@ shape = SubResource("RectangleShape2D_jem38")
 position = Vector2(-0.5, -28.6633)
 scale = Vector2(4.05444, 4.05444)
 texture = ExtResource("6_epod0")
+
+[node name="TargetableArea" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetableArea"]
+visible = false
+position = Vector2(0, -69)
+shape = SubResource("RectangleShape2D_66is8")
+
+[connection signal="input_event" from="TargetableArea" to="." method="_on_targetable_area_input_event"]

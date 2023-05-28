@@ -12,38 +12,6 @@ Button/font_sizes/font_size = 30
 [node name="Interface" type="CanvasLayer"]
 script = ExtResource("1_jw04m")
 
-[node name="Back" type="Button" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -113.0
-offset_bottom = 113.0
-grow_horizontal = 0
-theme = SubResource("Theme_aek7s")
-text = ">>>"
-
-[node name="Pause" type="Button" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -250.0
-offset_right = -137.0
-offset_bottom = 113.0
-grow_horizontal = 0
-theme = SubResource("Theme_aek7s")
-text = "||"
-
-[node name="Foward" type="Button" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -390.0
-offset_right = -277.0
-offset_bottom = 113.0
-grow_horizontal = 0
-theme = SubResource("Theme_aek7s")
-text = "<<<"
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
@@ -241,6 +209,73 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
+[node name="MatchInfoTop" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.0
+offset_right = 168.0
+offset_bottom = 161.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MatchInfoTop"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MatchInfoTop/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Scoreboard" type="Label" parent="MatchInfoTop/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 40
+text = "0 VS 0  "
+
+[node name="MarginContainer2" type="MarginContainer" parent="MatchInfoTop/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="TimeControl" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_right = 107.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 70
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TimeControl"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="TimeControl/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_aek7s")
+text = "<<<"
+
+[node name="Pause" type="Button" parent="TimeControl/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_aek7s")
+text = "||"
+
+[node name="Play" type="Button" parent="TimeControl/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_aek7s")
+text = "|>"
+
+[node name="Forward" type="Button" parent="TimeControl/HBoxContainer"]
+custom_minimum_size = Vector2(20, 2.08165e-12)
+layout_mode = 2
+theme = SubResource("Theme_aek7s")
+text = ">>>"
+
 [node name="MatchInfo" type="MarginContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -255,7 +290,11 @@ grow_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="PlayerBalance" type="Label" parent="MatchInfo"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MatchInfo"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerBalance" type="Label" parent="MatchInfo/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -264,10 +303,24 @@ theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 40
 text = "$ 100"
 
-[connection signal="pressed" from="Back" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Pause" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Foward" to="." method="_on_button_3_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="MatchInfo/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="MatchTime" type="Label" parent="MatchInfo/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("3_7ns5i")
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 40
+text = "00:00"
+
 [connection signal="pressed" from="Demon/Button" to="." method="_on_buy_demon_card_button_pressed"]
 [connection signal="pressed" from="Discard/Button" to="." method="_on_discard_button_pressed"]
 [connection signal="pressed" from="Human/Button" to="." method="_on_buy_human_card_button_pressed"]
 [connection signal="pressed" from="Swap/Button" to="." method="_on_swap_button_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/Back" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/Pause" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/Forward" to="." method="_on_button_pressed"]

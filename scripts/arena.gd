@@ -1,4 +1,4 @@
-extends "res://scripts/spawner.gd"
+extends "res://scripts/level1.gd"
 
 @onready var cardDB = preload("res://resources/cards/CardsDatabase.gd")
 

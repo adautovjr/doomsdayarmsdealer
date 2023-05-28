@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var DB = preload("res://resources/cards/CardsDatabase.gd")
+@onready var ability = preload("res://scenes/ability.tscn")
 
 @onready var units = {
 	"demon": preload("res://scenes/demon.tscn"),
@@ -75,3 +76,20 @@ func _handle_human_spawns(delta):
 		tw.tween_callback(spawnUnit.bind(DB.get_random_unit(), "human")).set_delay(0.8)
 		tw.tween_callback(spawnUnit.bind("archer", "human")).set_delay(0.8)
 		spawned_units_counter.human += 3
+
+
+func _on_targetable_area_input_event(_viewport, _event, _shape_idx):
+	if Input.is_action_pressed("click") and GameManager.selectedAbility:
+		print("used Ability")
+		var a = ability.instantiate()
+		add_child(a)
+		a.global_position = get_global_mouse_position()
+		var targets = a.get_child(0).get_overlapping_bodies()
+		var targetAreas = a.get_child(0).get_overlapping_areas()
+		print("a.global_position", a.global_position)
+		print("targets ", targets.size())
+		print("targetAreas ", targetAreas.size())
+		for t in targets:
+			if t.has_method("take_damage"):
+				t.take_damage(GameManager.selectedAbility.value, null)
+		GameManager.selectedAbility = null

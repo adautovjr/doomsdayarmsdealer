@@ -40,14 +40,31 @@ var unit_spawn_weight = {
 	"royal_knight": 0.0
 }
 
+var scoreboard = {
+	"human": 0,
+	"demon": 0
+}
+
+var selectedAbility = null
+
 func increase_engine_speed():
-	Engine.time_scale = Engine.time_scale * 2
+	if Engine.time_scale == 0:
+		Engine.time_scale = 2
+		return
+
+	if Engine.time_scale <= 16:
+		Engine.time_scale = Engine.time_scale * 2
 
 func decrease_engine_speed():
+	if Engine.time_scale == 0:
+		resume()
 	Engine.time_scale = Engine.time_scale / 2
 
-func togglePause():
-	Engine.time_scale = 0 if Engine.time_scale != 0 else 1
+func pause():
+	Engine.time_scale = 0
+
+func resume():
+	Engine.time_scale = 1
 
 
 func spawnRandomCards(qty: int, realm = null):

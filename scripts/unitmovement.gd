@@ -119,7 +119,7 @@ func _get_action(delta):
 ############## Actions ##############
 
 func take_damage(d: float, attacker: Unit):
-	if state == STATES.DIE:
+	if state == STATES.DIE and attacker:
 		attacker.check_collisions_for_valid_target()
 		return
 	var tw = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -270,8 +270,9 @@ func handle_death():
 		$HUD/DebugLabel.text = "die_" + class_info.classname
 		animated_sprite.play("die_" + class_info.classname)
 		GameManager.add_money(2)
+		GameManager.scoreboard["demon" if is_moving_left else "human"] += 1
 		set_physics_process(false)
-		if is_in_arena:
+		if is_in_arena and last_hit_by:
 			var death_data = {
 				str("human_" if last_hit_by.is_moving_left else "demon_", last_hit_by.class_info.classname, ";", "human_" if is_moving_left else "demon_", self.class_info.classname): {
 					"kills": 1,
@@ -290,6 +291,7 @@ func handle_death():
 func process_take_damage_metadata(d: float, attacker: Unit):
 	last_hit_by = attacker
 	hits_taken += 1
-	critical_hits_taken += 1 if d > attacker.damage else 0
 	total_damage_taken += d
-	attacker.total_damage_dealt += d
+	if attacker:
+		critical_hits_taken += 1 if d > attacker.damage else 0
+		attacker.total_damage_dealt += d

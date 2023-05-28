@@ -39,36 +39,40 @@ func init(cardName = "tank", realm = "human"):
 func _ready():
 	statsContainer.visible = cardInfo.type == "Unit"
 	cardSellPrice.text = str("$", cardInfo.sell_price)
-	if cardInfo.type == "Unit":
-		cardBase.frame = 1 if cardRealm == "human" else 4
-		unitSprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" else cardInfo.sprite_frame
-		unitSprite.visible = true
-		eventSprite.visible = false
-		modifier.frame = 143
-		statsContainer.visible = true
-		classInfo = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
-		return
-	if cardInfo.type == "Event":
-		cardBase.frame = 2 if cardRealm == "human" else 5
-		eventSprite.visible = true
-		eventSprite.frame = cardInfo.sprite_frame[cardRealm]
-		unitSprite.frame = 143
-		statsContainer.visible = false
-		eventLevel = weighted_random_level_choice()
-		modifier.visible = true
-		match eventLevel:
-			-3:
-				modifier.frame = 139
-			-2:
-				modifier.frame = 137
-			-1:
-				modifier.frame = 135
-			2:
-				modifier.frame = 138
-			3:
-				modifier.frame = 140
-			_:
-				modifier.frame = 136
+	match cardInfo.type:
+		"Unit":
+			cardBase.frame = 1 if cardRealm == "human" else 4
+			unitSprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" else cardInfo.sprite_frame
+			unitSprite.show()
+			eventSprite.hide()
+			modifier.hide()
+			classInfo = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
+		"Event":
+			cardBase.frame = 2 if cardRealm == "human" else 5
+			eventSprite.show()
+			eventSprite.frame = cardInfo.sprite_frame[cardRealm]
+			modifier.show()
+			unitSprite.hide()
+			eventLevel = weighted_random_level_choice()
+			match eventLevel:
+				-3:
+					modifier.frame = 139
+				-2:
+					modifier.frame = 137
+				-1:
+					modifier.frame = 135
+				2:
+					modifier.frame = 138
+				3:
+					modifier.frame = 140
+				_:
+					modifier.frame = 136
+		"Ability":
+			cardBase.frame = 0
+			unitSprite.hide()
+			eventSprite.show()
+			eventSprite.frame = cardInfo.sprite_frame
+			modifier.hide()
 
 
 func _physics_process(_delta):
@@ -88,7 +92,9 @@ func update_unit_stats():
 
 
 func _on_button_pressed():
-	print(cardInfo)
+	if GameManager.selectedAbility:
+		return
+
 	match cardInfo.type:
 		"Unit":
 			Events.emit_signal("spawnUnit", unitClass, cardRealm)
@@ -96,6 +102,11 @@ func _on_button_pressed():
 		"Event":
 			GameManager.handle_card_buff(cardInfo, eventLevel, cardRealm)
 			GameManager.add_money(cardInfo.sell_price)
+		"Ability":
+			GameManager.selectedAbility = {
+				"type": unitClass,
+				"value": cardInfo.value
+			}
 		_:
 			print(cardInfo.type + " card not Implemented yet")
 	queue_free()
