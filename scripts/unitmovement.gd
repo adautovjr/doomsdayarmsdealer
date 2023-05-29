@@ -129,10 +129,13 @@ func take_damage(d: float, attacker: Unit):
 
 func add_damage(value):
 	damage += value
+	damage = clampf(damage, 5, damage)
 
 func add_max_hp(value):
 	max_hp += value
+	max_hp = clampf(max_hp, 10, max_hp)
 	hp += value
+
 
 func add_attack_speed(value):
 	attack_cooldown_time = _get_attack_cooldown_time(clampf(class_info.attack_speed + value, 1, MAX_ATTACK_SPEED))

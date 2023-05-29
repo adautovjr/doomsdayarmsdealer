@@ -32,7 +32,6 @@ texture = ExtResource("2_4ocmp")
 metadata/_edit_lock_ = true
 
 [node name="Interface" parent="." instance=ExtResource("1_6j8ll")]
-visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-1, 0)
@@ -260,32 +259,6 @@ text = "Restart Match
 "
 
 [node name="Spacer4" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 2
-texture = ExtResource("12_xnit8")
-region_rect = Rect2(0, 0, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="HowToPlay" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_xiebi")
-theme_override_font_sizes/font_size = 26
-text = "How to play"
-
-[node name="Spacer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
@@ -1190,6 +1163,7 @@ theme_override_font_sizes/font_size = 16
 text = "Audio"
 
 [node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("15_dhpx7")
 
 [node name="MenuContainer" type="MarginContainer" parent="GameOver"]
@@ -1328,7 +1302,6 @@ text = "Quit"
 [connection signal="input_event" from="TargetableArea" to="." method="_on_targetable_area_input_event"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect/StartGame" to="." method="_on_resume_game_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="." method="_on_restart_game_pressed"]
-[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2/HowToPlay" to="PauseMenuInterface" method="howToPlay"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3/Options" to="PauseMenuInterface" method="options"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="PauseMenuInterface" method="quit"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/HowToPlay/NinePatchRect/Button" to="PauseMenuInterface" method="showStartMenu"]

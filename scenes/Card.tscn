@@ -76,6 +76,7 @@ text = "$50"
 horizontal_alignment = 2
 
 [node name="StatsContainer" type="MarginContainer" parent="MarginContainer/InfoContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_bottom = 3
@@ -198,6 +199,35 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InfoContainer/StatsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 52
+
+[node name="EventStatsContainer" type="MarginContainer" parent="MarginContainer/InfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InfoContainer/EventStatsContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Stats1Container" type="HBoxContainer" parent="MarginContainer/InfoContainer/EventStatsContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="StatValue" type="Label" parent="MarginContainer/InfoContainer/EventStatsContainer/VBoxContainer/Stats1Container"]
+custom_minimum_size = Vector2(50, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("1_aq8ae")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 24
+text = "2000"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InfoContainer/EventStatsContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 52
 

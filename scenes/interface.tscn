@@ -57,7 +57,7 @@ mouse_filter = 1
 theme = ExtResource("3_7ns5i")
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 25
-text = "$ 25"
+text = "$-25"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Demon"]
@@ -137,9 +137,11 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 1
 theme = ExtResource("3_7ns5i")
+theme_override_colors/font_color = Color(0.823529, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.32549, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 25
-text = "$ 25"
+text = "$-25"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Human"]
@@ -188,9 +190,11 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 1
 theme = ExtResource("3_7ns5i")
+theme_override_colors/font_color = Color(0.823529, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.32549, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 25
-text = "$ 25"
+text = "$-25"
 horizontal_alignment = 1
 
 [node name="Node2D" type="Node2D" parent="Swap"]
@@ -258,13 +262,13 @@ theme_override_constants/margin_right = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="TimeControl"]
 layout_mode = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+[node name="BackButton" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
 custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("6_gj7p6")
 region_rect = Rect2(2.08165e-12, 192, 16, 16)
 
-[node name="Back" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect"]
+[node name="Back" type="Button" parent="TimeControl/HBoxContainer/BackButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -273,13 +277,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_7ns5i")
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+[node name="PauseButton" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
 custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("6_gj7p6")
 region_rect = Rect2(16, 192, 16, 16)
 
-[node name="Pause" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect2"]
+[node name="Pause" type="Button" parent="TimeControl/HBoxContainer/PauseButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -288,13 +292,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_aek7s")
 
-[node name="NinePatchRect3" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+[node name="PlayButton" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
 custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("6_gj7p6")
 region_rect = Rect2(32, 192, 16, 16)
 
-[node name="Play" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect3"]
+[node name="Play" type="Button" parent="TimeControl/HBoxContainer/PlayButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,13 +307,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_aek7s")
 
-[node name="NinePatchRect4" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+[node name="ForwardButton" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
 custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
 texture = ExtResource("6_gj7p6")
 region_rect = Rect2(48, 192, 16, 16)
 
-[node name="Forward" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect4"]
+[node name="Forward" type="Button" parent="TimeControl/HBoxContainer/ForwardButton"]
 custom_minimum_size = Vector2(20, 2.08165e-12)
 layout_mode = 1
 anchors_preset = 15
@@ -342,6 +346,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("3_7ns5i")
+theme_override_colors/font_color = Color(1, 0.815686, 0, 1)
+theme_override_colors/font_outline_color = Color(0.45098, 0.329412, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 40
 text = "$ 100"
@@ -363,7 +369,7 @@ text = "00:00"
 [connection signal="pressed" from="Discard/Button" to="." method="_on_discard_button_pressed"]
 [connection signal="pressed" from="Human/Button" to="." method="_on_buy_human_card_button_pressed"]
 [connection signal="pressed" from="Swap/Button" to="." method="_on_swap_button_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect/Back" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect2/Pause" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect3/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect4/Forward" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/BackButton/Back" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/PauseButton/Pause" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/PlayButton/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/ForwardButton/Forward" to="." method="_on_button_pressed"]

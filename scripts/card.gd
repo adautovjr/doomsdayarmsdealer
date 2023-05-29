@@ -14,6 +14,8 @@ var eventLevel = 1
 @onready var modifier = $MarginContainer/Modifier
 @onready var cardSellPrice = $MarginContainer/InfoContainer/SellPriceContainer/MarginContainer/CardSellPrice
 @onready var statsContainer = $MarginContainer/InfoContainer/StatsContainer
+@onready var eventStatsContainer = $MarginContainer/InfoContainer/EventStatsContainer
+@onready var eventStatsLabel = $MarginContainer/InfoContainer/EventStatsContainer/VBoxContainer/Stats1Container/StatValue
 @onready var hp = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats1Container/HP
 @onready var armor = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats1Container/Armor
 @onready var damage = $MarginContainer/InfoContainer/StatsContainer/VBoxContainer/Stats2Container/Damage
@@ -38,6 +40,7 @@ func init(cardName = "tank", realm = "human"):
 
 func _ready():
 	statsContainer.visible = cardInfo.type == "Unit"
+	eventStatsContainer.visible = cardInfo.type == "Event"
 	cardSellPrice.text = str("$", cardInfo.sell_price)
 	match cardInfo.type:
 		"Unit":
@@ -54,6 +57,8 @@ func _ready():
 			modifier.show()
 			unitSprite.hide()
 			eventLevel = weighted_random_level_choice()
+			var modifierValue = cardInfo.value * eventLevel
+			eventStatsLabel.text = str("+" if modifierValue >= 0 else "", modifierValue)
 			match eventLevel:
 				-3:
 					modifier.frame = 139
@@ -83,11 +88,15 @@ func update_unit_stats():
 	if not classInfo:
 		return
 
-	hp.text = str(classInfo.hp + GameManager.hp_buff[cardRealm])
+	var hpValue = classInfo.hp + GameManager.hp_buff[cardRealm]
+	var damageValue = classInfo.damage + GameManager.damage_buff[cardRealm]
+	var attackSpeedValue = classInfo.attack_speed + GameManager.attack_speed_buff[cardRealm]
+
+	hp.text = str(clampf(hpValue, 10, hpValue))
 	armor.text = str(classInfo.armor + GameManager.armor_buff[cardRealm])
-	damage.text = str(classInfo.damage + GameManager.damage_buff[cardRealm])
+	damage.text = str(clampf(damageValue, 5, damageValue))
 	armorPen.text = str(classInfo.armor_penetration + GameManager.armor_penetration_buff[cardRealm])
-	attackSpeed.text = str(classInfo.attack_speed + GameManager.attack_speed_buff[cardRealm])
+	attackSpeed.text = str(clampf(attackSpeedValue, 1, Unit.MAX_ATTACK_SPEED))
 	criticalChance.text = str(classInfo.critical_chance, "%")
 
 

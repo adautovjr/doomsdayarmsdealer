@@ -11,10 +11,11 @@ func _ready():
 	bestScore.text = ""
 
 func handle_game_over(result):
-	matchResult.text = str("The ", result.loser,"s have been obliterated!")
+	var loserLabel = "angel" if result.loser == "human" else result.loser
+	matchResult.text = str("Oh no! The ", loserLabel,"s have been obliterated!")
 	if result.best_score >= result.earned:
-		matchDesc.text = str("You got $", result.earned," this time.")
-		bestScore.text = str("You had $", result.best_score," in your best match.")
+		matchDesc.text = str("You had $", result.earned," this time.")
+		bestScore.text = str("You got $", result.best_score," in your best match.")
 	else:
 		SaveManager.save_best_score(result.earned)
 		matchDesc.text = str("Nice! You got your best result yet! $", result.earned)

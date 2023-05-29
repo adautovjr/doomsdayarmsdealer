@@ -11,6 +11,10 @@ const Cooldown = preload("res://scripts/cooldown.gd")
 @onready var discardHandPriceLabel = $Discard/DiscardPrice
 @onready var swapHandPriceLabel = $Swap/MarginContainer/SwapPrice
 @onready var swapHandProgressBar = $Swap/Node2D/TextureProgressBar
+@onready var backButton = $TimeControl/HBoxContainer/BackButton
+@onready var pauseButton = $TimeControl/HBoxContainer/PauseButton
+@onready var playButton = $TimeControl/HBoxContainer/PlayButton
+@onready var forwardButton = $TimeControl/HBoxContainer/ForwardButton
 
 var matchTime = 0.0
 
@@ -138,17 +142,38 @@ func update_ui():
 	if playerBalanceLabel:
 		playerBalanceLabel.text = str("$", GameManager.player_balance)
 	if demonCardBuyPriceLabel:
-		demonCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
+		demonCardBuyPriceLabel.text = str("$-", GameManager.card_buy_price)
 	if humanCardBuyPriceLabel:
-		humanCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
+		humanCardBuyPriceLabel.text = str("$-", GameManager.card_buy_price)
 	if discardHandPriceLabel:
 		discardHandPriceLabel.text = str("$", str((GameManager.card_buy_price / 2) * hand.get_child_count()))
 	if swapHandPriceLabel:
-		swapHandPriceLabel.text = str("$", GameManager.swap_hand_price)
+		swapHandPriceLabel.text = str("$-", GameManager.swap_hand_price)
 	if matchTimeLabel:
 		var minutes = str("0", int(matchTime / 60)) if int(matchTime / 60) < 10 else str(int(matchTime / 60))
 		var seconds = str("0", int(int(matchTime) % 60)) if int(int(matchTime) % 60) < 10 else str(int(int(matchTime) % 60))
 		matchTimeLabel.text = str(minutes, ":", seconds)
 	if scoreboard:
 		scoreboard.text =	str(GameManager.scoreboard["demon"], " vs ", GameManager.scoreboard["human"], "  ")
+
+	if Engine.time_scale > 1:
+		backButton.region_rect = Rect2(0, 192, 16, 16)
+		pauseButton.region_rect = Rect2(16, 192, 16, 16)
+		playButton.region_rect = Rect2(32, 192, 16, 16)
+		forwardButton.region_rect = Rect2(48, 208, 16, 16)
+	elif Engine.time_scale == 1:
+		backButton.region_rect = Rect2(0, 192, 16, 16)
+		pauseButton.region_rect = Rect2(16, 192, 16, 16)
+		playButton.region_rect = Rect2(32, 208, 16, 16)
+		forwardButton.region_rect = Rect2(48, 192, 16, 16)
+	elif Engine.time_scale > 0 and Engine.time_scale < 1:
+		backButton.region_rect = Rect2(0, 208, 16, 16)
+		pauseButton.region_rect = Rect2(16, 192, 16, 16)
+		playButton.region_rect = Rect2(32, 192, 16, 16)
+		forwardButton.region_rect = Rect2(48, 192, 16, 16)
+	else:
+		backButton.region_rect = Rect2(0, 192, 16, 16)
+		pauseButton.region_rect = Rect2(16, 208, 16, 16)
+		playButton.region_rect = Rect2(32, 192, 16, 16)
+		forwardButton.region_rect = Rect2(48, 192, 16, 16)
 
