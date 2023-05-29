@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbdvo62wnsnp1"]
+[gd_scene load_steps=19 format=3 uid="uid://bbdvo62wnsnp1"]
 
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_2r7er"]
 [ext_resource type="PackedScene" uid="uid://dws5yla2y7vyd" path="res://scenes/interface.tscn" id="1_6j8ll"]
@@ -13,6 +13,7 @@
 [ext_resource type="StyleBox" uid="uid://dqwoy5w5txdrm" path="res://assets/ui/TransparentPanel.tres" id="11_jm4v0"]
 [ext_resource type="Texture2D" uid="uid://by36203ski5my" path="res://assets/ui.png" id="12_xnit8"]
 [ext_resource type="Texture2D" uid="uid://drp55pgdkeyjs" path="res://assets/cards.png" id="13_ik5ub"]
+[ext_resource type="Texture2D" uid="uid://dehogpg2d4dml" path="res://assets/background-ui.png" id="13_kvfyb"]
 [ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="14_nm4mt"]
 [ext_resource type="Script" path="res://scripts/GameOver.gd" id="15_dhpx7"]
 
@@ -316,12 +317,12 @@ custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("12_xnit8")
-region_rect = Rect2(2.08165e-12, 96, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+texture = ExtResource("13_kvfyb")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay"]
 layout_mode = 1
@@ -587,12 +588,12 @@ custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("12_xnit8")
-region_rect = Rect2(2.08165e-12, 96, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+texture = ExtResource("13_kvfyb")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Credits"]
 layout_mode = 1
@@ -820,12 +821,12 @@ custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("12_xnit8")
-region_rect = Rect2(2.08165e-12, 96, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+texture = ExtResource("13_kvfyb")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options"]
 layout_mode = 1
@@ -1162,6 +1163,29 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 16
 text = "Audio"
 
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = -20.0
+offset_right = 19.0
+offset_bottom = 44.0
+grow_horizontal = 0
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(24, 166, 16, 19)
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="PauseMenuInterface/MenuContainer/Options/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="GameOver" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("15_dhpx7")
@@ -1315,5 +1339,6 @@ text = "Quit"
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/NinePatchRect2/Save" to="PauseMenuInterface" method="_on_save_options_button_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect/Display" to="PauseMenuInterface" method="_on_display_options_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect2/Audio" to="PauseMenuInterface" method="_on_audio_options_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/NinePatchRect/Button" to="PauseMenuInterface" method="showStartMenu"]
 [connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="GameOver" method="back_to_menu"]
 [connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="GameOver" method="quit"]

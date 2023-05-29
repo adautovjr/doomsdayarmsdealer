@@ -84,6 +84,7 @@ func _input(event):
 			GameManager.resume()
 		else:
 			GameManager.pause()
+		pauseMenu.showStartMenu()
 		pauseMenu.visible = !pauseMenu.visible
 
 
