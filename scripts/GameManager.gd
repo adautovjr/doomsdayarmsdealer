@@ -3,11 +3,13 @@ extends Node
 @onready var cardDB = preload("res://resources/cards/CardsDatabase.gd")
 @onready var cardScene = preload("res://scenes/Card.tscn")
 
-var player_balance = 1000000.0
-var card_buy_price = 20.0
+var player_balance = 100.0
+var card_buy_price = 10.0
 var discard_hand_price = 50.0
 var swap_hand_price = 100.0
 var swap_hand_cooldown_time = 60.0
+
+var amount_earned = player_balance
 
 var damage_buff = {
 	"demon": 0.0,
@@ -114,11 +116,14 @@ func spawnCard(cardName: String, realm: String):
 
 func spend_money(amount: float):
 	player_balance -= amount
+	Events.emit_signal("play_spend_money_sound")
 	Events.emit_signal("update_balance_ui")
 
 
 func add_money(amount: float):
 	player_balance += amount
+	amount_earned += amount
+	Events.emit_signal("play_money_sound")
 	Events.emit_signal("update_balance_ui")
 
 
@@ -164,5 +169,10 @@ func handle_card_buff(cardInfo, eventLevel, realm):
 			print("Card buff not implemented")
 
 
-func game_over():
-	get_tree().quit()
+func game_over(loser):
+	pause()
+	Events.emit_signal("handle_game_over", {
+		"loser": loser,
+		"earned": amount_earned,
+		"best_score": SaveManager.best_score
+	})

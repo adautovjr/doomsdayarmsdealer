@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-@onready var gameScene = preload("res://levels/level_1.tscn")
-
 @onready var fullscreenLabel = $MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/Label
 @onready var vsyncLabel = $MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/Label
 @onready var masterVolume = $MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume/MarginContainer2/MasterVolumeSlider
@@ -37,28 +35,45 @@ func _physics_process(_delta):
 
 
 func startGame():
-	get_tree().change_scene_to_packed(gameScene)
+	play_button_sound()
+	get_tree().change_scene_to_packed(load("res://levels/level_1.tscn"))
+
 
 
 func showStartMenu():
+	play_button_sound()
 	$MenuContainer/StartMenu.show()
 	$MenuContainer/HowToPlay.hide()
 	$MenuContainer/Options.hide()
+	$MenuContainer/Credits.hide()
 
 
 func howToPlay():
+	play_button_sound()
 	$MenuContainer/StartMenu.hide()
 	$MenuContainer/HowToPlay.show()
 	$MenuContainer/Options.hide()
+	$MenuContainer/Credits.hide()
+
+
+func credits():
+	play_button_sound()
+	$MenuContainer/StartMenu.hide()
+	$MenuContainer/HowToPlay.hide()
+	$MenuContainer/Options.hide()
+	$MenuContainer/Credits.show()
 
 
 func options():
+	play_button_sound()
 	$MenuContainer/StartMenu.hide()
 	$MenuContainer/HowToPlay.hide()
 	$MenuContainer/Options.show()
+	$MenuContainer/Credits.hide()
 
 
 func quit():
+	play_button_sound()
 	get_tree().quit()
 
 
@@ -79,11 +94,13 @@ func update_options_ui():
 
 
 func _on_display_options_pressed():
+	play_button_sound()
 	$MenuContainer/Options/MarginContainer/OptionsContainer/Audio.hide()
 	$MenuContainer/Options/MarginContainer/OptionsContainer/Display.show()
 
 
 func _on_audio_options_pressed():
+	play_button_sound()
 	$MenuContainer/Options/MarginContainer/OptionsContainer/Audio.show()
 	$MenuContainer/Options/MarginContainer/OptionsContainer/Display.hide()
 
@@ -102,7 +119,17 @@ func prev_cycle_option(opts: Dictionary, selected):
 			return optionsKeys[optionsKeys.size() - 1] if i == 0 else optionsKeys[i - 1]
 
 
+
+func play_button_sound():
+	Events.emit_signal("play_click_sound")
+
+
+func play_tick_sound():
+	Events.emit_signal("play_tick_sound")
+
+
 func _on_save_options_button_pressed():
+	play_button_sound()
 	SaveManager.set_window_mode(selectedWindowMode)
 	SaveManager.set_vsync_mode(selectedVsync)
 	SaveManager.set_master_volume(selectedMaster)
@@ -114,27 +141,37 @@ func _on_save_options_button_pressed():
 
 func _on_window_mode_prev_pressed():
 	selectedWindowMode = prev_cycle_option(availableWindowModes, selectedWindowMode)
+	play_button_sound()
 
 
 func _on_window_mode_next_pressed():
+	play_button_sound()
 	selectedWindowMode = next_cycle_option(availableWindowModes, selectedWindowMode)
 
 
 func _on_vsync_mode_prev_pressed():
+	play_button_sound()
 	selectedVsync = prev_cycle_option(availableVSyncModes, selectedVsync)
 
 
 func _on_vsync_mode_next_pressed():
+	play_button_sound()
 	selectedVsync = next_cycle_option(availableVSyncModes, selectedVsync)
 
 
 func _on_master_volume_slider_value_changed(value):
+	play_tick_sound()
 	selectedMaster = value
+	SaveManager.set_master_volume(selectedMaster)
 
 
 func _on_sound_volume_slider_value_changed(value):
+	play_tick_sound()
 	selectedSound = value
+	SaveManager.set_sound_volume(selectedSound)
 
 
 func _on_music_volume_slider_value_changed(value):
+	play_tick_sound()
 	selectedMusic = value
+	SaveManager.set_music_volume(selectedMusic)

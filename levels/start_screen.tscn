@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhsg3nh0wgcth"]
+[gd_scene load_steps=10 format=3 uid="uid://dhsg3nh0wgcth"]
 
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_n6dq3"]
 [ext_resource type="Script" path="res://scripts/StartScreenInterface.gd" id="2_d5d66"]
 [ext_resource type="Texture2D" uid="uid://s4iw0th8dmxx" path="res://assets/background.png" id="2_pqxl4"]
 [ext_resource type="Texture2D" uid="uid://by36203ski5my" path="res://assets/ui.png" id="3_or7po"]
@@ -7,8 +8,10 @@
 [ext_resource type="StyleBox" uid="uid://dqwoy5w5txdrm" path="res://assets/ui/TransparentPanel.tres" id="4_sb2rb"]
 [ext_resource type="Texture2D" uid="uid://drp55pgdkeyjs" path="res://assets/cards.png" id="6_3asco"]
 [ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="7_rt5x6"]
+[ext_resource type="AudioStream" uid="uid://dg1dv88mltyfw" path="res://assets/audio/Menu.wav" id="8_fym5j"]
 
 [node name="StartScreen" type="Node2D"]
+script = ExtResource("1_n6dq3")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, -28)
@@ -36,7 +39,6 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="StartMenu" type="PanelContainer" parent="StartScreenInterface/MenuContainer"]
-visible = false
 custom_minimum_size = Vector2(1000, 800)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -154,6 +156,32 @@ text = "Options"
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
+[node name="NinePatchRect5" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("3_or7po")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Credits" type="Button" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_qjjcs")
+theme_override_font_sizes/font_size = 26
+text = "Credits"
+
+[node name="Spacer4" type="MarginContainer" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
 [node name="NinePatchRect4" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
@@ -177,6 +205,7 @@ theme_override_font_sizes/font_size = 26
 text = "Quit"
 
 [node name="HowToPlay" type="NinePatchRect" parent="StartScreenInterface/MenuContainer"]
+visible = false
 custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -439,6 +468,239 @@ region_rect = Rect2(24, 166, 16, 19)
 metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="StartScreenInterface/MenuContainer/HowToPlay/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="NinePatchRect" parent="StartScreenInterface/MenuContainer"]
+visible = false
+custom_minimum_size = Vector2(1100, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_or7po")
+region_rect = Rect2(2.08165e-12, 96, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="StartScreenInterface/MenuContainer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Thanks for playing Doomsday Arms Dealer!"
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "We had a blast working on this project and we feel like we can achieve anything now. 
+Please remember to review this game on itch.io."
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Programmer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label6" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Sound Producer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label10" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Julia Bezerra"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label12" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Art Director"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label13" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Aelson Junior"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Game Design"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Aelson Junior"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Julia Bezerra"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label8" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Special Thanks"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label9" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Prof. André Brito"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label11" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Prof. Isaac"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label12" type="Label" parent="StartScreenInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Mark Brown"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/Credits"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = -20.0
+offset_right = 19.0
+offset_bottom = 44.0
+grow_horizontal = 0
+texture = ExtResource("3_or7po")
+region_rect = Rect2(24, 166, 16, 19)
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="StartScreenInterface/MenuContainer/Credits/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -794,11 +1056,21 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 16
 text = "Audio"
 
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"Sound"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_fym5j")
+autoplay = true
+bus = &"Music"
+
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect/StartGame" to="StartScreenInterface" method="startGame"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2/HowToPlay" to="StartScreenInterface" method="howToPlay"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3/Options" to="StartScreenInterface" method="options"]
+[connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/Credits" to="StartScreenInterface" method="credits"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="StartScreenInterface" method="quit"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/HowToPlay/NinePatchRect/Button" to="StartScreenInterface" method="showStartMenu"]
+[connection signal="pressed" from="StartScreenInterface/MenuContainer/Credits/NinePatchRect/Button" to="StartScreenInterface" method="showStartMenu"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect/Button" to="StartScreenInterface" method="_on_window_mode_prev_pressed"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect2/Button2" to="StartScreenInterface" method="_on_window_mode_next_pressed"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/NinePatchRect/Button" to="StartScreenInterface" method="_on_vsync_mode_prev_pressed"]

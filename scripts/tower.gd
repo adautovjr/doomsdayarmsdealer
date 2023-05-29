@@ -1,7 +1,7 @@
 extends Area2D
 class_name Tower
 
-@export var hp = 2000
+@export var hp = 10
 @export var realm: String = ""
 var max_hp: float
 const MAX_ARMOR_PENETRATION = 95
@@ -27,7 +27,7 @@ func take_damage(damage: float, attacker: Unit):
 
 func handle_game_over():
 	if hp <= 0:
-		GameManager.game_over()
+		GameManager.game_over(realm)
 
 
 ############## UI ##############

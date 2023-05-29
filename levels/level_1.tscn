@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbdvo62wnsnp1"]
+[gd_scene load_steps=18 format=3 uid="uid://bbdvo62wnsnp1"]
 
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_2r7er"]
 [ext_resource type="PackedScene" uid="uid://dws5yla2y7vyd" path="res://scenes/interface.tscn" id="1_6j8ll"]
@@ -7,6 +7,14 @@
 [ext_resource type="Script" path="res://scripts/tower.gd" id="5_66f8i"]
 [ext_resource type="Texture2D" uid="uid://c6wyqfs3m7jkq" path="res://assets/background-gates.png" id="6_epod0"]
 [ext_resource type="Theme" uid="uid://cmqheujsf21rb" path="res://theme.tres" id="6_xiebi"]
+[ext_resource type="AudioStream" uid="uid://naja1fi7leqw" path="res://assets/audio/Intro.wav" id="8_qx6cb"]
+[ext_resource type="AudioStream" uid="uid://cvx2vpdwocfc6" path="res://assets/audio/Main.wav" id="9_uyvqf"]
+[ext_resource type="Script" path="res://scripts/StartScreenInterface.gd" id="10_vm6km"]
+[ext_resource type="StyleBox" uid="uid://dqwoy5w5txdrm" path="res://assets/ui/TransparentPanel.tres" id="11_jm4v0"]
+[ext_resource type="Texture2D" uid="uid://by36203ski5my" path="res://assets/ui.png" id="12_xnit8"]
+[ext_resource type="Texture2D" uid="uid://drp55pgdkeyjs" path="res://assets/cards.png" id="13_ik5ub"]
+[ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="14_nm4mt"]
+[ext_resource type="Script" path="res://scripts/GameOver.gd" id="15_dhpx7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jem38"]
 size = Vector2(126, 102)
@@ -24,6 +32,7 @@ texture = ExtResource("2_4ocmp")
 metadata/_edit_lock_ = true
 
 [node name="Interface" parent="." instance=ExtResource("1_6j8ll")]
+visible = false
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-1, 0)
@@ -125,4 +134,1213 @@ visible = false
 position = Vector2(0, -69)
 shape = SubResource("RectangleShape2D_66is8")
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_qx6cb")
+autoplay = true
+bus = &"Music"
+
+[node name="Loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_uyvqf")
+volume_db = -1.0
+bus = &"Music"
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"Sound"
+
+[node name="PauseMenuInterface" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("10_vm6km")
+
+[node name="Panel" type="Panel" parent="PauseMenuInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="MarginContainer" parent="PauseMenuInterface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="StartMenu" type="PanelContainer" parent="PauseMenuInterface/MenuContainer"]
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="Panel" type="Panel" parent="PauseMenuInterface/MenuContainer/StartMenu"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Panel" type="Panel" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="StartGame" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Resume
+"
+
+[node name="Spacer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="StartGame" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Restart Match
+"
+
+[node name="Spacer4" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="HowToPlay" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "How to play"
+
+[node name="Spacer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Options" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Options"
+
+[node name="Spacer3" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Quit" type="Button" parent="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Quit"
+
+[node name="HowToPlay" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer"]
+visible = false
+custom_minimum_size = Vector2(1100, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 96, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "  Sell equipment to both dimensions but don't let them obliterate each other. Try to beat the dev's high score of $100.000 earned in one match."
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 300)
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 16
+
+[node name="Sprite2D" type="Sprite2D" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+position = Vector2(121, 167)
+scale = Vector2(4.03125, 4.03125)
+texture = ExtResource("13_ik5ub")
+hframes = 4
+vframes = 2
+frame = 1
+
+[node name="UnitSprite" type="Sprite2D" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+position = Vector2(121, 96)
+scale = Vector2(4.03125, 4.03125)
+texture = ExtResource("14_nm4mt")
+hframes = 9
+vframes = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 25
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 14
+text = "Sell Price"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "HP"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="Label2" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "Armor"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 11
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 33
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "Damage"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Label2" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "Arm Pen"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "Atk Spd"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+
+[node name="Label2" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 10
+text = "Crit"
+horizontal_alignment = 1
+
+[node name="Control2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 300)
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_bottom = 16
+
+[node name="Sprite2D" type="Sprite2D" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control2"]
+position = Vector2(121, 167)
+scale = Vector2(4.03125, 4.03125)
+texture = ExtResource("13_ik5ub")
+hframes = 4
+vframes = 2
+frame = 6
+
+[node name="UnitSprite" type="Sprite2D" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control2"]
+position = Vector2(115.5, 165.5)
+scale = Vector2(4.03125, 4.03125)
+texture = ExtResource("14_nm4mt")
+hframes = 9
+vframes = 16
+frame = 130
+
+[node name="UnitSprite2" type="Sprite2D" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control2"]
+position = Vector2(115.5, 165.5)
+scale = Vector2(4.03125, 4.03125)
+texture = ExtResource("14_nm4mt")
+hframes = 9
+vframes = 16
+frame = 140
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control2"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 25
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer/HBoxContainer/Control2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_xiebi")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 14
+text = "Sell Price"
+
+[node name="Label3" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="PauseMenuInterface/MenuContainer/HowToPlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "  If you run out of cards, pay up to draw some more from each dimension deck. You can only have 8 cards in your hand at a time, but you may sell your hand for half their buy price. You can also pay to refresh your hand if you've got the money."
+autowrap_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/HowToPlay"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = -20.0
+offset_right = 19.0
+offset_bottom = 44.0
+grow_horizontal = 0
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(24, 166, 16, 19)
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="PauseMenuInterface/MenuContainer/HowToPlay/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer"]
+visible = false
+custom_minimum_size = Vector2(1100, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 96, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Thanks for playing Doomsday Arms Dealer!"
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "We had a blast working on this project and we feel like we can achieve anything now. 
+Please remember to review this game on itch.io."
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Programmer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label6" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Sound Producer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label10" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Julia Bezerra"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label12" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Art Director"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label13" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Aelson Junior"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Game Design"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Adauto Guedes"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Aelson Junior"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Julia Bezerra"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Label8" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(336.136, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 21
+theme_override_font_sizes/font_size = 30
+text = "Special Thanks"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label9" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Prof. André Brito"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label11" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Prof. Isaac"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label12" type="Label" parent="PauseMenuInterface/MenuContainer/Credits/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 24
+text = "Mark Brown"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Credits"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = -20.0
+offset_right = 19.0
+offset_bottom = 44.0
+grow_horizontal = 0
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(24, 166, 16, 19)
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="PauseMenuInterface/MenuContainer/Credits/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer"]
+visible = false
+custom_minimum_size = Vector2(1100, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 96, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 50
+
+[node name="OptionsContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Display" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display"]
+layout_mode = 2
+
+[node name="WindowMode" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Window Mode"
+
+[node name="MarginContainer2" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
+layout_mode = 2
+alignment = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Button" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("11_jm4v0")
+theme_override_styles/hover = ExtResource("11_jm4v0")
+text = "<"
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Windowed"
+horizontal_alignment = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Button2" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("11_jm4v0")
+text = ">"
+
+[node name="Vsync" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "V-sync"
+
+[node name="MarginContainer2" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
+layout_mode = 2
+alignment = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Button" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/NinePatchRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("11_jm4v0")
+theme_override_styles/hover = ExtResource("11_jm4v0")
+text = "<"
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2"]
+custom_minimum_size = Vector2(300, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "On"
+horizontal_alignment = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Button2" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/NinePatchRect2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("11_jm4v0")
+theme_override_styles/hover = ExtResource("11_jm4v0")
+text = ">"
+
+[node name="Audio" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio"]
+layout_mode = 2
+
+[node name="MasterVolume" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume/MarginContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Master Volume"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume"]
+custom_minimum_size = Vector2(410, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume/MarginContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 0.5
+
+[node name="SoundVolume" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume/MarginContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Sound Volume"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume"]
+custom_minimum_size = Vector2(410, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SoundVolumeSlider" type="HSlider" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume/MarginContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="MusicVolume" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume/MarginContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Music"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume"]
+custom_minimum_size = Vector2(410, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume/MarginContainer2"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Save" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/NinePatchRect2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "Save"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Display" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Display"
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Audio" type="Button" parent="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Audio"
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+script = ExtResource("15_dhpx7")
+
+[node name="MenuContainer" type="MarginContainer" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="StartMenu" type="PanelContainer" parent="GameOver/MenuContainer"]
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="Panel" type="Panel" parent="GameOver/MenuContainer/StartMenu"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Panel" type="Panel" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("11_jm4v0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="MatchResultTitle" type="Label" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 50
+text = "The demons have been obliterated!"
+horizontal_alignment = 1
+
+[node name="Spacer6" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="MatchResultDescription" type="Label" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 36
+text = "You got $123123 this time."
+horizontal_alignment = 1
+
+[node name="Spacer7" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="MatchResultBestScore" type="Label" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_font_sizes/font_size = 30
+text = "You had $123123123 in your best match."
+horizontal_alignment = 1
+
+[node name="Spacer5" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 300
+
+[node name="NinePatchRect5" type="NinePatchRect" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="StartGame" type="Button" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Restart Match
+"
+
+[node name="Spacer4" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("12_xnit8")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="Quit" type="Button" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_xiebi")
+theme_override_font_sizes/font_size = 26
+text = "Quit"
+
 [connection signal="input_event" from="TargetableArea" to="." method="_on_targetable_area_input_event"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect/StartGame" to="." method="_on_resume_game_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="." method="_on_restart_game_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2/HowToPlay" to="PauseMenuInterface" method="howToPlay"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3/Options" to="PauseMenuInterface" method="options"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="PauseMenuInterface" method="quit"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/HowToPlay/NinePatchRect/Button" to="PauseMenuInterface" method="showStartMenu"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect/Button" to="PauseMenuInterface" method="_on_window_mode_prev_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect2/Button2" to="PauseMenuInterface" method="_on_window_mode_next_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/NinePatchRect/Button" to="PauseMenuInterface" method="_on_vsync_mode_prev_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/Vsync/MarginContainer2/NinePatchRect2/Button2" to="PauseMenuInterface" method="_on_vsync_mode_next_pressed"]
+[connection signal="value_changed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume/MarginContainer2/MasterVolumeSlider" to="PauseMenuInterface" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume/MarginContainer2/SoundVolumeSlider" to="PauseMenuInterface" method="_on_sound_volume_slider_value_changed"]
+[connection signal="value_changed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume/MarginContainer2/MusicVolumeSlider" to="PauseMenuInterface" method="_on_music_volume_slider_value_changed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/NinePatchRect2/Save" to="PauseMenuInterface" method="_on_save_options_button_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect/Display" to="PauseMenuInterface" method="_on_display_options_pressed"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect2/Audio" to="PauseMenuInterface" method="_on_audio_options_pressed"]
+[connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="GameOver" method="back_to_menu"]
+[connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="GameOver" method="quit"]

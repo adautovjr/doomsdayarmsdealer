@@ -1,11 +1,14 @@
 extends Node
 
-const SAVE_FILE_PATH = "user://hail2theking.save"
+const SAVE_FILE_PATH = "user://doomsdayarmsdealer.save"
+const BEST_SCORE_FILE_PATH = "user://doomsdayarmsdealerbestscore.save"
 
 var game_options = {}
+var best_score = 0
 
 func _ready():
 	load_data()
+	load_best_score()
 
 
 func load_data():
@@ -15,9 +18,9 @@ func load_data():
 			"window_mode": DisplayServer.WINDOW_MODE_WINDOWED,
 			"vsync": DisplayServer.VSYNC_DISABLED,
 			"max_fps": 120,
-			"master_volume": 0.3,
-			"sound_volume": 0.5,
-			"music_volume": 0.5
+			"master_volume": 0.4,
+			"sound_volume": 0.4,
+			"music_volume": 0.2
 		}
 		save_data()
 		return
@@ -72,3 +75,20 @@ func set_sound_volume(value: float):
 func set_music_volume(value: float):
 	AudioServer.set_bus_volume_db(2, linear_to_db(value))
 	save_option("music_volume", value)
+
+
+func load_best_score():
+	var file = FileAccess.open(BEST_SCORE_FILE_PATH, FileAccess.READ)
+	if not file:
+		file = FileAccess.open(BEST_SCORE_FILE_PATH, FileAccess.WRITE)
+		file.store_var(0)
+		file.close()
+		return
+	best_score = file.get_var()
+	file.close()
+
+
+func save_best_score(value):
+	var file = FileAccess.open(BEST_SCORE_FILE_PATH, FileAccess.WRITE)
+	file.store_var(value)
+	file.close()

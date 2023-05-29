@@ -14,6 +14,9 @@ extends Node2D
 
 const Cooldown = preload("res://scripts/cooldown.gd")
 var time = 0
+var time_begin
+var time_delay
+
 
 @onready var demon_spawn_cooldown = Cooldown.new(10)
 @onready var human_spawn_cooldown = Cooldown.new(10)
@@ -23,17 +26,46 @@ var spawned_units_counter = {
 	"human": 0
 }
 
+@onready var music = $Music
+@onready var musicLoop = $Loop
+@onready var sfx = $SFX
+
+@onready var HUD = $Interface
+@onready var pauseMenu = $PauseMenuInterface
+@onready var gameOverUI = $GameOver
+
 var unitNames = null
 
 func _ready():
 	Events.connect("spawnUnit", spawnUnit)
+	Events.connect("play_click_sound", play_click_sound)
+	Events.connect("play_tick_sound", play_tick_sound)
+	Events.connect("play_money_sound", play_money_sound)
+	Events.connect("play_spend_money_sound", play_spend_money_sound)
+	Events.connect("play_time_control_sound", play_time_control_sound)
+	Events.connect("play_pause_sound", play_pause_sound)
+	Events.connect("play_denied_sound", play_denied_sound)
+	Events.connect("handle_game_over", handle_game_over)
 	unitNames = DB.get_unit_classes().keys()
+	pauseMenu.hide()
+	gameOverUI.hide()
+	HUD.show()
+	time_begin = Time.get_ticks_usec()
+	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	GameManager.resume()
 
 
 func _physics_process(delta):
 	_handle_demon_spawns(delta)
 	_handle_human_spawns(delta)
+	var clocktimePassed = (Time.get_ticks_usec() - time_begin) / 1000000.0
+	clocktimePassed -= time_delay
+	clocktimePassed = max(0, clocktimePassed)
 	time += delta
+
+	if clocktimePassed > 15.96 and not musicLoop.playing:
+		musicLoop.play()
+
 	var value = 0
 	for i in unitNames.size():
 		value = floori(floori(time / 100) * i)
@@ -42,6 +74,16 @@ func _physics_process(delta):
 
 	if value > 0:
 			time = 0
+
+
+func _input(event):
+	if event.is_action_pressed("escape"):
+		play_tick_sound()
+		if pauseMenu.visible:
+			GameManager.resume()
+		else:
+			GameManager.pause()
+		pauseMenu.visible = !pauseMenu.visible
 
 
 
@@ -93,3 +135,54 @@ func _on_targetable_area_input_event(_viewport, _event, _shape_idx):
 			if t.has_method("take_damage"):
 				t.take_damage(GameManager.selectedAbility.value, null)
 		GameManager.selectedAbility = null
+
+
+func _on_resume_game_pressed():
+	play_click_sound()
+	GameManager.resume()
+	pauseMenu.hide()
+
+
+func _on_restart_game_pressed():
+	get_tree().change_scene_to_packed(load("res://levels/start_screen.tscn"))
+
+
+func play_click_sound():
+	sfx.stream = load("res://assets/audio/kenney_ui-audio/Audio/click1.ogg")
+	sfx.play()
+
+
+func play_tick_sound():
+	sfx.stream = load("res://assets/audio/kenney_ui-audio/Audio/click3.ogg")
+	sfx.play()
+
+
+func play_money_sound():
+	sfx.stream = load("res://assets/audio/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Coins in Sack Dropped on Soft Surface.wav")
+	sfx.play()
+
+
+func play_spend_money_sound():
+	sfx.stream = load("res://assets/audio/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Wallet Close.wav")
+	sfx.play()
+
+
+func play_time_control_sound():
+	sfx.stream = load("res://assets/audio/Shapeforms Audio Free Sound Effects/Cassette Preview/AUDIO/BUTTON_12.wav")
+	sfx.play()
+
+
+func play_pause_sound():
+	sfx.stream = load("res://assets/audio/Shapeforms Audio Free Sound Effects/Cassette Preview/AUDIO/BUTTON_STOP_02.wav")
+	sfx.play()
+
+
+func play_denied_sound():
+	sfx.stream = load("res://assets/audio/kenney_interface-sounds/Audio/glass_001.ogg")
+	sfx.play()
+
+
+func handle_game_over(_result):
+	pauseMenu.hide()
+	gameOverUI.show()
+	HUD.hide()

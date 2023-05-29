@@ -267,6 +267,7 @@ func _get_damage_reduction_multiplier(enemy_armor_penetration: float):
 func handle_death():
 	if hp <= 0:
 		state = STATES.DIE
+		$AnimationPlayer.play("money_earned")
 		$HUD/DebugLabel.text = "die_" + class_info.classname
 		animated_sprite.play("die_" + class_info.classname)
 		GameManager.add_money(2)

@@ -42,18 +42,22 @@ func _physics_process(delta):
 ############## Connections ##############
 
 func _on_button_pressed():
+	Events.emit_signal("play_time_control_sound")
 	GameManager.increase_engine_speed()
 
 
 func _on_button_2_pressed():
+	Events.emit_signal("play_pause_sound")
 	GameManager.pause()
 
 
 func _on_play_pressed():
+	Events.emit_signal("play_time_control_sound")
 	GameManager.resume()
 
 
 func _on_button_3_pressed():
+	Events.emit_signal("play_time_control_sound")
 	GameManager.decrease_engine_speed()
 
 
@@ -118,6 +122,7 @@ func add_cards_to_players_hand(card):
 
 
 func show_balance_unavailable_warning():
+	Events.emit_signal("play_denied_sound")
 	var tw = create_tween()
 	tw.tween_method(change_color, Color("000000"), Color("c50000"), .1).set_ease(Tween.EASE_IN)
 	tw.tween_method(change_color, Color("c50000"), Color("000000"), .5).set_ease(Tween.EASE_OUT)
