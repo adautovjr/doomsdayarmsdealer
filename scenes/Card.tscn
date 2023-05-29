@@ -22,9 +22,9 @@ theme_override_constants/margin_right = 26
 position = Vector2(108, 158)
 scale = Vector2(3.39063, 3.39063)
 texture = ExtResource("4_ddf5q")
-hframes = 3
+hframes = 4
 vframes = 2
-frame = 4
+frame = 2
 
 [node name="UnitSprite" type="Sprite2D" parent="MarginContainer"]
 position = Vector2(108, 97)
@@ -63,7 +63,8 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InfoContainer/SellPriceContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 22
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 4
 
 [node name="CardSellPrice" type="Label" parent="MarginContainer/InfoContainer/SellPriceContainer/MarginContainer"]
 layout_mode = 2
@@ -72,6 +73,7 @@ theme_override_colors/font_outline_color = Color(0, 0.564706, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 22
 text = "$50"
+horizontal_alignment = 2
 
 [node name="StatsContainer" type="MarginContainer" parent="MarginContainer/InfoContainer"]
 layout_mode = 2

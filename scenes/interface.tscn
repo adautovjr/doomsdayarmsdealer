@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dws5yla2y7vyd"]
+[gd_scene load_steps=8 format=3 uid="uid://dws5yla2y7vyd"]
 
 [ext_resource type="Script" path="res://scripts/interface.gd" id="1_jw04m"]
 [ext_resource type="Theme" uid="uid://cmqheujsf21rb" path="res://theme.tres" id="3_7ns5i"]
 [ext_resource type="Texture2D" uid="uid://ctyr8v8x8a8vl" path="res://assets/units_spritesheet.png" id="4_q6dhp"]
 [ext_resource type="Texture2D" uid="uid://drp55pgdkeyjs" path="res://assets/cards.png" id="4_xqp3j"]
 [ext_resource type="Texture2D" uid="uid://bj877avfvyhiw" path="res://assets/circle_orange.png" id="5_dnyvl"]
+[ext_resource type="Texture2D" uid="uid://by36203ski5my" path="res://assets/ui.png" id="6_gj7p6"]
 
 [sub_resource type="Theme" id="Theme_aek7s"]
 Button/font_sizes/font_size = 30
@@ -41,9 +42,9 @@ theme_override_constants/margin_bottom = 17
 position = Vector2(69, 74)
 scale = Vector2(1.59375, 1.59375)
 texture = ExtResource("4_xqp3j")
-hframes = 3
+hframes = 4
 vframes = 2
-frame = 3
+frame = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Demon"]
 layout_mode = 2
@@ -78,9 +79,9 @@ theme_override_constants/margin_bottom = 49
 position = Vector2(69, 70)
 scale = Vector2(1.5625, 1.5625)
 texture = ExtResource("4_xqp3j")
-hframes = 3
+hframes = 4
 vframes = 2
-frame = 2
+frame = 3
 
 [node name="Icon" type="Sprite2D" parent="Discard"]
 position = Vector2(68, 57)
@@ -124,7 +125,7 @@ theme_override_constants/margin_bottom = 10
 position = Vector2(51, 72)
 scale = Vector2(1.5625, 1.5625)
 texture = ExtResource("4_xqp3j")
-hframes = 3
+hframes = 4
 vframes = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Human"]
@@ -165,9 +166,9 @@ metadata/_edit_lock_ = true
 position = Vector2(50, 68)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_xqp3j")
-hframes = 3
+hframes = 4
 vframes = 2
-frame = 2
+frame = 3
 metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="Swap"]
@@ -250,31 +251,73 @@ offset_left = -107.0
 offset_right = 107.0
 offset_bottom = 120.0
 grow_horizontal = 2
+theme = ExtResource("3_7ns5i")
 theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TimeControl"]
 layout_mode = 2
 
-[node name="Back" type="Button" parent="TimeControl/HBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
-theme = SubResource("Theme_aek7s")
-text = "<<<"
+texture = ExtResource("6_gj7p6")
+region_rect = Rect2(2.08165e-12, 192, 16, 16)
 
-[node name="Pause" type="Button" parent="TimeControl/HBoxContainer"]
+[node name="Back" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_7ns5i")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
-theme = SubResource("Theme_aek7s")
-text = "||"
+texture = ExtResource("6_gj7p6")
+region_rect = Rect2(16, 192, 16, 16)
 
-[node name="Play" type="Button" parent="TimeControl/HBoxContainer"]
+[node name="Pause" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_aek7s")
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
 layout_mode = 2
-theme = SubResource("Theme_aek7s")
-text = "|>"
+texture = ExtResource("6_gj7p6")
+region_rect = Rect2(32, 192, 16, 16)
 
-[node name="Forward" type="Button" parent="TimeControl/HBoxContainer"]
+[node name="Play" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_aek7s")
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="TimeControl/HBoxContainer"]
+custom_minimum_size = Vector2(60, 2.08165e-12)
+layout_mode = 2
+texture = ExtResource("6_gj7p6")
+region_rect = Rect2(48, 192, 16, 16)
+
+[node name="Forward" type="Button" parent="TimeControl/HBoxContainer/NinePatchRect4"]
 custom_minimum_size = Vector2(20, 2.08165e-12)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_aek7s")
-text = ">>>"
 
 [node name="MatchInfo" type="MarginContainer" parent="."]
 anchors_preset = 7
@@ -320,7 +363,7 @@ text = "00:00"
 [connection signal="pressed" from="Discard/Button" to="." method="_on_discard_button_pressed"]
 [connection signal="pressed" from="Human/Button" to="." method="_on_buy_human_card_button_pressed"]
 [connection signal="pressed" from="Swap/Button" to="." method="_on_swap_button_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/Back" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/Pause" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="TimeControl/HBoxContainer/Forward" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect/Back" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect2/Pause" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect3/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="TimeControl/HBoxContainer/NinePatchRect4/Forward" to="." method="_on_button_pressed"]

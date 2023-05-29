@@ -1,9 +1,7 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://cmqheujsf21rb"]
 
-[ext_resource type="FontFile" uid="uid://cwoub0kfqqpab" path="res://assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf" id="1_83i54"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfbx5"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[ext_resource type="StyleBox" uid="uid://dqwoy5w5txdrm" path="res://assets/ui/TransparentPanel.tres" id="1_2pn20"]
+[ext_resource type="FontFile" uid="uid://cklg8q082143" path="res://assets/fonts/Retro Gaming.ttf" id="2_k166d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf0e2"]
 bg_color = Color(0.0941176, 0.00784314, 0.0196078, 1)
@@ -20,14 +18,21 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [resource]
+default_font = ExtResource("2_k166d")
 default_font_size = 10
-Button/styles/disabled = SubResource("StyleBoxFlat_yfbx5")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 10
+Button/styles/disabled = ExtResource("1_2pn20")
+Button/styles/focus = ExtResource("1_2pn20")
+Button/styles/hover = ExtResource("1_2pn20")
+Button/styles/normal = ExtResource("1_2pn20")
+Button/styles/pressed = ExtResource("1_2pn20")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/line_spacing = 1
 Label/constants/outline_size = 5
 Label/constants/shadow_outline_size = 2
-Label/fonts/font = ExtResource("1_83i54")
 ProgressBar/colors/font_color = Color(0.94902, 0.94902, 0.94902, 0)
 ProgressBar/font_sizes/font_size = 1
 ProgressBar/styles/background = SubResource("StyleBoxFlat_mf0e2")

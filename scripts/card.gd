@@ -41,14 +41,14 @@ func _ready():
 	cardSellPrice.text = str("$", cardInfo.sell_price)
 	match cardInfo.type:
 		"Unit":
-			cardBase.frame = 1 if cardRealm == "human" else 4
+			cardBase.frame = 1 if cardRealm == "human" else 5
 			unitSprite.frame = cardInfo.sprite_frame + 63 if cardRealm == "demon" else cardInfo.sprite_frame
 			unitSprite.show()
 			eventSprite.hide()
 			modifier.hide()
 			classInfo = load(str("res://resources/classes/class_", unitClass, "_", cardRealm, ".tres")) as ClassInfo
 		"Event":
-			cardBase.frame = 2 if cardRealm == "human" else 5
+			cardBase.frame = 2 if cardRealm == "human" else 6
 			eventSprite.show()
 			eventSprite.frame = cardInfo.sprite_frame[cardRealm]
 			modifier.show()
@@ -68,7 +68,7 @@ func _ready():
 				_:
 					modifier.frame = 136
 		"Ability":
-			cardBase.frame = 0
+			cardBase.frame = 3
 			unitSprite.hide()
 			eventSprite.show()
 			eventSprite.frame = cardInfo.sprite_frame

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bbl4u4wwoxiyg"
+path="res://.godot/imported/TAPE STOP_15.wav-298f291b6c4b075398d68654d2622937.sample"
+
+[deps]
+
+source_file="res://assets/audio/Shapeforms Audio Free Sound Effects/Cassette Preview/AUDIO/TAPE STOP_15.wav"
+dest_files=["res://.godot/imported/TAPE STOP_15.wav-298f291b6c4b075398d68654d2622937.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

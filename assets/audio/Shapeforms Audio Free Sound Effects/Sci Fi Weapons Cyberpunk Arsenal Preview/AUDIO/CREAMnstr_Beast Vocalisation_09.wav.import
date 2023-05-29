@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dcqgmo1ii38i4"
+path="res://.godot/imported/CREAMnstr_Beast Vocalisation_09.wav-9021b36631522eed9cb8022b55df9df6.sample"
+
+[deps]
+
+source_file="res://assets/audio/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/CREAMnstr_Beast Vocalisation_09.wav"
+dest_files=["res://.godot/imported/CREAMnstr_Beast Vocalisation_09.wav-9021b36631522eed9cb8022b55df9df6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
