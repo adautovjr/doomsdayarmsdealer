@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2023-05-30
+
+### Added
+
+- Added rule to show how to play menu at least once
+- Added play button on forced how to play screen
+
+### Fixed
+
+- Fixed unwanted red labels on card prices
+- Removed quit game button which was not working
+
+### Changed
+
+- Updated cards to have a more contextual look
+
 ## [1.0.2] - 2023-05-29
 
 ### Fixed

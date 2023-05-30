@@ -197,34 +197,7 @@ theme = ExtResource("3_qjjcs")
 theme_override_font_sizes/font_size = 26
 text = "Credits"
 
-[node name="Spacer4" type="MarginContainer" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-
-[node name="NinePatchRect4" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 2
-texture = ExtResource("6_yp0oh")
-region_rect = Rect2(2.08165e-12, 2.08165e-12, 96, 96)
-patch_margin_left = 32
-patch_margin_top = 32
-patch_margin_right = 32
-patch_margin_bottom = 32
-
-[node name="Quit" type="Button" parent="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_qjjcs")
-theme_override_font_sizes/font_size = 26
-text = "Quit"
-
 [node name="HowToPlay" type="NinePatchRect" parent="StartScreenInterface/MenuContainer"]
-visible = false
 custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -596,7 +569,7 @@ theme_override_font_sizes/font_size = 24
 text = "  If you run out of cards, pay up to draw some more from each dimension deck. You can only have 8 cards in your hand at a time, but you may sell your hand for half their buy price. You can also pay to refresh your hand if you've got the money."
 autowrap_mode = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/HowToPlay"]
+[node name="Close" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/HowToPlay"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 1
@@ -611,7 +584,7 @@ texture = ExtResource("3_or7po")
 region_rect = Rect2(24, 166, 16, 19)
 metadata/_edit_lock_ = true
 
-[node name="Button" type="Button" parent="StartScreenInterface/MenuContainer/HowToPlay/NinePatchRect"]
+[node name="Button" type="Button" parent="StartScreenInterface/MenuContainer/HowToPlay/Close"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,7 +592,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="PlayGame" type="NinePatchRect" parent="StartScreenInterface/MenuContainer/HowToPlay"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -64.0
+offset_right = 100.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("6_yp0oh")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 96, 96)
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+metadata/_edit_group_ = true
+
+[node name="Button" type="Button" parent="StartScreenInterface/MenuContainer/HowToPlay/PlayGame"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 28
+text = "Play"
+
 [node name="Credits" type="NinePatchRect" parent="StartScreenInterface/MenuContainer"]
+visible = false
 custom_minimum_size = Vector2(1100, 800)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1247,8 +1261,8 @@ bus = &"Music"
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect2/HowToPlay" to="StartScreenInterface" method="howToPlay"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3/Options" to="StartScreenInterface" method="options"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/Credits" to="StartScreenInterface" method="credits"]
-[connection signal="pressed" from="StartScreenInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="StartScreenInterface" method="quit"]
-[connection signal="pressed" from="StartScreenInterface/MenuContainer/HowToPlay/NinePatchRect/Button" to="StartScreenInterface" method="showStartMenu"]
+[connection signal="pressed" from="StartScreenInterface/MenuContainer/HowToPlay/Close/Button" to="StartScreenInterface" method="showStartMenu"]
+[connection signal="pressed" from="StartScreenInterface/MenuContainer/HowToPlay/PlayGame/Button" to="StartScreenInterface" method="startGame"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Credits/NinePatchRect/Button" to="StartScreenInterface" method="showStartMenu"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect/Button" to="StartScreenInterface" method="_on_window_mode_prev_pressed"]
 [connection signal="pressed" from="StartScreenInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect2/Button2" to="StartScreenInterface" method="_on_window_mode_next_pressed"]

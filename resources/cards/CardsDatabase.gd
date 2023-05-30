@@ -113,14 +113,14 @@ const DATA = {
 	}
 }
 
-# "thunderstrike": {
-#		"type": "Ability",
-#		"description": "Zaaap",
-#		"sell_price": 8.0,
-#		"sprite_frame": 89,
-#		"value": 200,
-#		"chance": 99
-#	}
+#"thunderstrike": {
+#	"type": "Ability",
+#	"description": "Zaaap",
+#	"sell_price": 8.0,
+#	"sprite_frame": 89,
+#	"value": 200,
+#	"chance": 99
+#}
 
 
 static func get_unit_classes() -> Dictionary:

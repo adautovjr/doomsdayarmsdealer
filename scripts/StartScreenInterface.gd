@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var masterVolume = $MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MasterVolume/MarginContainer2/MasterVolumeSlider
 @onready var soundVolume = $MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/SoundVolume/MarginContainer2/SoundVolumeSlider
 @onready var musicVolume = $MenuContainer/Options/MarginContainer/OptionsContainer/Audio/VBoxContainer/MusicVolume/MarginContainer2/MusicVolumeSlider
+@onready var howToPlayCloseButton = $MenuContainer/HowToPlay/Close
+@onready var howToPlayPlayButton = $MenuContainer/HowToPlay/PlayGame
 
 const availableWindowModes = {
 	0: "Windowed",
@@ -25,7 +27,10 @@ const availableVSyncModes = {
 }
 
 func _ready():
-	showStartMenu()
+	$MenuContainer/StartMenu.show()
+	$MenuContainer/HowToPlay.hide()
+	$MenuContainer/Options.hide()
+	$MenuContainer/Credits.hide()
 	loadSelectedOptions()
 	_on_display_options_pressed()
 
@@ -36,6 +41,10 @@ func _physics_process(_delta):
 
 func startGame():
 	play_button_sound()
+	if not SaveManager.get_seen_tutorial():
+		howToPlay(true)
+		SaveManager.set_seen_tutorial()
+		return
 	get_tree().change_scene_to_packed(load("res://levels/level_1.tscn"))
 
 
@@ -48,12 +57,19 @@ func showStartMenu():
 	$MenuContainer/Credits.hide()
 
 
-func howToPlay():
+func howToPlay(showButtonToPlay: bool = false):
 	play_button_sound()
+	SaveManager.set_seen_tutorial()
 	$MenuContainer/StartMenu.hide()
 	$MenuContainer/HowToPlay.show()
 	$MenuContainer/Options.hide()
 	$MenuContainer/Credits.hide()
+	if showButtonToPlay:
+		howToPlayCloseButton.hide()
+		howToPlayPlayButton.show()
+	else:
+		howToPlayCloseButton.show()
+		howToPlayPlayButton.hide()
 
 
 func credits():
@@ -175,3 +191,8 @@ func _on_music_volume_slider_value_changed(value):
 	play_tick_sound()
 	selectedMusic = value
 	SaveManager.set_music_volume(selectedMusic)
+
+
+func back_to_menu():
+	Events.emit_signal("play_click_sound")
+	get_tree().change_scene_to_packed(load("res://levels/start_screen.tscn"))

@@ -11,3 +11,4 @@ signal play_time_control_sound
 signal play_pause_sound
 signal play_denied_sound
 signal handle_game_over(result)
+signal seen_tutorial

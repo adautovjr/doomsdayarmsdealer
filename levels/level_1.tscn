@@ -145,6 +145,7 @@ volume_db = -1.0
 bus = &"Music"
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
 bus = &"Sound"
 
 [node name="PauseMenuInterface" type="CanvasLayer" parent="."]
@@ -309,7 +310,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_xiebi")
 theme_override_font_sizes/font_size = 26
-text = "Quit"
+text = "Quit to main menu"
 
 [node name="HowToPlay" type="NinePatchRect" parent="PauseMenuInterface/MenuContainer"]
 visible = false
@@ -1297,37 +1298,11 @@ theme_override_font_sizes/font_size = 26
 text = "Restart Match
 "
 
-[node name="Spacer4" type="MarginContainer" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-
-[node name="NinePatchRect4" type="NinePatchRect" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 2
-texture = ExtResource("12_xnit8")
-region_rect = Rect2(0, 0, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="Quit" type="Button" parent="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4"]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_xiebi")
-theme_override_font_sizes/font_size = 26
-text = "Quit"
-
 [connection signal="input_event" from="TargetableArea" to="." method="_on_targetable_area_input_event"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect/StartGame" to="." method="_on_resume_game_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="." method="_on_restart_game_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect3/Options" to="PauseMenuInterface" method="options"]
-[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="PauseMenuInterface" method="quit"]
+[connection signal="pressed" from="PauseMenuInterface/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="PauseMenuInterface" method="back_to_menu"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/HowToPlay/NinePatchRect/Button" to="PauseMenuInterface" method="showStartMenu"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect/Button" to="PauseMenuInterface" method="_on_window_mode_prev_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/OptionsContainer/Display/VBoxContainer/WindowMode/MarginContainer2/NinePatchRect2/Button2" to="PauseMenuInterface" method="_on_window_mode_next_pressed"]
@@ -1341,4 +1316,3 @@ text = "Quit"
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/MarginContainer/HBoxContainer/NinePatchRect2/Audio" to="PauseMenuInterface" method="_on_audio_options_pressed"]
 [connection signal="pressed" from="PauseMenuInterface/MenuContainer/Options/NinePatchRect/Button" to="PauseMenuInterface" method="showStartMenu"]
 [connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect5/StartGame" to="GameOver" method="back_to_menu"]
-[connection signal="pressed" from="GameOver/MenuContainer/StartMenu/Panel/MarginContainer/Panel/VBoxContainer/NinePatchRect4/Quit" to="GameOver" method="quit"]

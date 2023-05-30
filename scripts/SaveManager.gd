@@ -9,18 +9,20 @@ var best_score = 0
 func _ready():
 	load_data()
 	load_best_score()
+	Events.connect("seen_tutorial", set_seen_tutorial)
 
 
 func load_data():
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.READ)
 	if not file:
 		game_options = {
-			"window_mode": DisplayServer.WINDOW_MODE_WINDOWED,
+			"window_mode": DisplayServer.WINDOW_MODE_MAXIMIZED,
 			"vsync": DisplayServer.VSYNC_DISABLED,
 			"max_fps": 120,
 			"master_volume": 0.4,
-			"sound_volume": 0.4,
-			"music_volume": 0.2
+			"sound_volume": 0.2,
+			"music_volume": 0.2,
+			"seen_tutorial": false
 		}
 		save_data()
 		return
@@ -50,6 +52,17 @@ func reset_game_options():
 	set_master_volume(game_options.master_volume)
 	set_sound_volume(game_options.sound_volume)
 	set_music_volume(game_options.music_volume)
+
+
+func get_seen_tutorial():
+	if not game_options.has("seen_tutorial"):
+		return false
+
+	return game_options.seen_tutorial
+
+
+func set_seen_tutorial():
+	save_option("seen_tutorial", true)
 
 
 func set_window_mode(value: DisplayServer.WindowMode):

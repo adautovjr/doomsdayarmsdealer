@@ -1,7 +1,7 @@
 extends Area2D
 class_name Tower
 
-@export var hp = 10
+@export var hp = 2000
 @export var realm: String = ""
 var max_hp: float
 const MAX_ARMOR_PENETRATION = 95

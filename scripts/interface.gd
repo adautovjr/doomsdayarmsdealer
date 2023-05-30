@@ -142,13 +142,13 @@ func update_ui():
 	if playerBalanceLabel:
 		playerBalanceLabel.text = str("$", GameManager.player_balance)
 	if demonCardBuyPriceLabel:
-		demonCardBuyPriceLabel.text = str("$-", GameManager.card_buy_price)
+		demonCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
 	if humanCardBuyPriceLabel:
-		humanCardBuyPriceLabel.text = str("$-", GameManager.card_buy_price)
+		humanCardBuyPriceLabel.text = str("$", GameManager.card_buy_price)
 	if discardHandPriceLabel:
 		discardHandPriceLabel.text = str("$", str((GameManager.card_buy_price / 2) * hand.get_child_count()))
 	if swapHandPriceLabel:
-		swapHandPriceLabel.text = str("$-", GameManager.swap_hand_price)
+		swapHandPriceLabel.text = str("$", GameManager.swap_hand_price)
 	if matchTimeLabel:
 		var minutes = str("0", int(matchTime / 60)) if int(matchTime / 60) < 10 else str(int(matchTime / 60))
 		var seconds = str("0", int(int(matchTime) % 60)) if int(int(matchTime) % 60) < 10 else str(int(int(matchTime) % 60))
